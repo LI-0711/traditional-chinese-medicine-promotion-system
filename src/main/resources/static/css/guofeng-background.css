@@ -1,0 +1,16 @@
+body {
+    background-color: #f4f6f2;
+    background-image:
+            linear-gradient(rgba(244, 246, 242, 0.70), rgba(244, 246, 242, 0.78)),
+            url("../images/backgrounds/guofeng-tcm-bg.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+@media (max-width: 900px) {
+    body {
+        background-attachment: scroll;
+    }
+}

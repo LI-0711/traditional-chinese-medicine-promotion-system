@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>History & Favorites</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f6f2;
+            margin:0;
+        }
+
+        .header{
+            background:#2f5d50;
+            color:white;
+            padding:18px 60px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .header-left{
+            display:flex;
+            align-items:center;
+        }
+
+        #welcomeUser{
+            font-size:24px;
+            font-weight:700;
+            color:white;
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .header-right{
+            display:flex;
+            align-items:center;
+            gap:20px;
+        }
+
+        .header-right select{
+            background:white;
+            color:#2f5d50;
+            border:none;
+            padding:10px 18px;
+            border-radius:8px;
+            font-size:15px;
+        }
+
+        .logout-btn{
+            background:white;
+            color:#2f5d50;
+            border:none;
+            padding:10px 18px;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;
+            width:auto;
+            margin-top:0;
+        }
+
+        .navbar{
+            background:white;
+            display:flex;
+            justify-content:center;
+            gap:45px;
+            padding:18px;
+            box-shadow:0 2px 10px rgba(0,0,0,.08);
+        }
+
+        .navbar a{
+            color:#444;
+            text-decoration:none;
+            font-weight:bold;
+            padding-bottom:6px;
+        }
+
+        .navbar a.active{
+            color:#2f7d68;
+            border-bottom:3px solid #2f7d68;
+        }
+
+        .container{
+            width:1200px;
+            margin:40px auto 60px;
+            background:white;
+            padding:30px;
+            border-radius:15px;
+        }
+
+        .section-card{
+
+            background:white;
+
+            padding:30px;
+
+            border-radius:18px;
+
+            box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+            margin-bottom:35px;
+
+        }
+
+        .section-card h2{
+
+            margin-top:0;
+
+            color:#2f5d50;
+
+            border-left:5px solid #2f7d68;
+
+            padding-left:15px;
+
+            margin-bottom:25px;
+
+        }
+
+        h2{
+            color:#2f5d50;
+        }
+
+        .card{
+            background:#f7faf8;
+            padding:15px;
+            border-radius:10px;
+            margin-top:15px;
+        }
+
+        button{
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            background:#2f7d68;
+            color:white;
+            cursor:pointer;
+        }
+
+
+        button:hover{
+            background:#256855;
+        }
+
+
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:20px;
+        }
+
+        .herb-card{
+            background:white;
+            border-radius:18px;
+            overflow:hidden;
+            box-shadow:0 0 12px rgba(0,0,0,0.08);
+            display:flex;
+        }
+
+        .herb-img{
+            width:180px;
+            height:250px;
+            object-fit:cover;
+        }
+
+        .herb-content{
+            padding:20px;
+            flex:1;
+        }
+
+        .herb-content h3{
+            margin:0;
+            color:#2f5d50;
+        }
+
+        .category{
+            display:inline-block;
+            margin-top:8px;
+            padding:5px 10px;
+            border-radius:20px;
+            background:#e6eee9;
+            color:#2f5d50;
+            font-size:13px;
+        }
+
+        .remove-btn{
+            margin-top:15px;
+            background:#d9534f;
+            color:white;
+            border:none;
+            padding:10px 15px;
+            border-radius:8px;
+            cursor:pointer;
+        }
+    </style>
+    <link rel="stylesheet" href="css/guofeng-background.css?v=20260717-1">
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="header-left">
+        <span id="welcomeUser"></span>
+    </div>
+
+    <div class="header-right">
+
+        <select id="languageSelect" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+            <option value="ms">Bahasa Melayu</option>
+        </select>
+
+        <button
+                class="logout-btn"
+                id="logoutBtn"
+                onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+<div class="navbar">
+
+    <a href="home.html" id="navHome">Home</a>
+
+    <a href="herb.html" id="navHerb">
+        Herb Information
+    </a>
+
+    <a href="quiz.html" id="navQuiz">
+        Knowledge Quiz
+    </a>
+
+    <a href="history.html"
+       id="navHistory"
+       class="active">
+        History
+    </a>
+
+    <a href="personal_center.html"
+       id="navPersonal">
+        Personal Center
+    </a>
+
+</div>
+
+<div class="container">
+
+    <div class="section-card">
+
+        <h2 id="quizTitle">
+            Quiz History
+        </h2>
+
+        <div id="quizHistory"></div>
+
+    </div>
+
+    <div class="section-card">
+
+        <h2 id="favoriteTitle">
+            Favorite Herbs
+        </h2>
+
+        <div id="favoriteList" class="grid"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+    let currentLanguage =
+        localStorage.getItem("language") || "en";
+
+    let quizRecords = [];
+    let favoriteRecords = [];
+    let herbCatalog = [];
+
+    document.getElementById("languageSelect").value =
+        currentLanguage;
+
+    const username = localStorage.getItem("username");
+
+    if(!username){
+        window.location.href="login.html";
+    }
+    const translations = {
+
+        en:{
+            welcome:"👤 Welcome, " + username,
+            logout:"Logout", title:"History", home:"Home", herbs:"Herb Information",
+            quiz:"Knowledge Quiz", history:"History", personal:"Personal Center",
+            quizTitle:"Quiz History", favoriteTitle:"Favorite Herbs", score:"Score",
+            accuracy:"Accuracy", noQuiz:"No quiz history yet.", quizFailed:"Failed to load quiz history.",
+            noFavorites:"No favorite herbs yet.", favoritesFailed:"Failed to load favorites.",
+            functions:"Functions", usage:"Usage", precautions:"Precautions", description:"Description",
+            remove:"⭐ Remove Favorite", removeFailed:"Failed to remove favorite."
+        },
+
+        zh:{
+            welcome:"👤 欢迎，" + username,
+            logout:"退出登录", title:"历史记录", home:"首页", herbs:"草药信息",
+            quiz:"知识测验", history:"历史记录", personal:"个人中心",
+            quizTitle:"测验历史", favoriteTitle:"收藏的草药", score:"得分",
+            accuracy:"正确率", noQuiz:"暂无测验记录。", quizFailed:"测验历史加载失败。",
+            noFavorites:"暂无收藏的草药。", favoritesFailed:"收藏列表加载失败。",
+            functions:"功效", usage:"常见用法", precautions:"注意事项", description:"简介",
+            remove:"⭐ 取消收藏", removeFailed:"取消收藏失败。"
+        },
+
+        ms:{
+            welcome:"👤 Selamat Datang, " + username,
+            logout:"Log Keluar", title:"Sejarah", home:"Laman Utama", herbs:"Maklumat Herba",
+            quiz:"Kuiz Pengetahuan", history:"Sejarah", personal:"Pusat Peribadi",
+            quizTitle:"Sejarah Kuiz", favoriteTitle:"Herba Kegemaran", score:"Skor",
+            accuracy:"Ketepatan", noQuiz:"Belum ada sejarah kuiz.", quizFailed:"Gagal memuatkan sejarah kuiz.",
+            noFavorites:"Belum ada herba kegemaran.", favoritesFailed:"Gagal memuatkan senarai kegemaran.",
+            functions:"Fungsi", usage:"Penggunaan", precautions:"Langkah berjaga-jaga", description:"Penerangan",
+            remove:"⭐ Buang Kegemaran", removeFailed:"Gagal membuang kegemaran."
+        }
+
+    };
+
+    /* 草药资料库 */
+    const herbInfo = {
+        en: {
+            "人参": {
+                name: "Ginseng",
+                category: "Qi-tonifying Herb",
+                functions: "Commonly introduced in TCM culture as a herb related to Qi support, vitality, and body strengthening.",
+                usage: "Often discussed in soup, tea, or traditional formula learning contexts.",
+                precautions: "Not suitable as a basis for self-treatment. Special groups should consult professionals.",
+                description: "Ginseng is a well-known Qi-tonifying herb in TCM cultural learning."
+            },
+            "枸杞": {
+                name: "Goji Berry",
+                category: "Nourishing Herb",
+                functions: "Commonly introduced for liver and eye nourishment, fatigue relief, and general wellness learning.",
+                usage: "Often used in tea, porridge, soup, or daily wellness learning contexts.",
+                precautions: "People with special constitutions or those taking medication should use caution.",
+                description: "Goji berry is often associated with daily health preservation in TCM culture."
+            },
+            "黄芪": {
+                name: "Astragalus",
+                category: "Qi-tonifying Herb",
+                functions: "Commonly introduced for Qi support and body defense learning topics.",
+                usage: "Often discussed in soup or traditional formula learning contexts.",
+                precautions: "Long-term or excessive self-use is not recommended.",
+                description: "Astragalus is a common Qi-tonifying herb in TCM cultural education."
+            },
+            "当归": {
+                name: "Angelica Sinensis",
+                category: "Blood-nourishing Herb",
+                functions: "Commonly introduced in TCM culture for blood nourishment and circulation-related knowledge.",
+                usage: "Often discussed in soup or traditional formula learning contexts.",
+                precautions: "Pregnant individuals, people with bleeding tendency, or those using anticoagulants should consult professionals.",
+                description: "Angelica Sinensis is a common blood-nourishing herb in TCM culture."
+            },
+            "甘草": {
+                name: "Licorice Root",
+                category: "Harmonizing Herb",
+                functions: "Commonly introduced as a harmonizing herb in traditional formulas and throat/lung-related learning.",
+                usage: "Often introduced as a harmonizing ingredient in TCM formula learning.",
+                precautions: "Long-term excessive use may carry risks and should be avoided.",
+                description: "Licorice root often appears as a harmonizing herb in TCM cultural learning."
+            }
+        },
+        zh: {
+            "人参": {
+                name: "人参",
+                category: "补气类",
+                functions: "常用于中医药文化中补气、扶正、增强体力相关学习内容。",
+                usage: "常见于炖汤、泡茶或中药配方学习场景。",
+                precautions: "不适合作为自行治疗依据，特殊人群应咨询专业人士。",
+                description: "人参是中医药文化中常见的补气类药材，常被用于养生和传统知识学习。"
+            },
+            "枸杞": {
+                name: "枸杞",
+                category: "滋补类",
+                functions: "常用于养肝明目、滋补、缓解疲劳相关的中医药文化学习内容。",
+                usage: "常见用法包括泡水、煮粥、煲汤。",
+                precautions: "体质特殊或正在服药者应谨慎使用。",
+                description: "枸杞在中医药文化中常与日常养生和饮食调理相关。"
+            },
+            "黄芪": {
+                name: "黄芪",
+                category: "补气类",
+                functions: "常用于补气、固表、增强体质相关学习内容。",
+                usage: "常见于煲汤或中药方剂学习场景。",
+                precautions: "不建议自行长期大量使用。",
+                description: "黄芪是传统中医药文化中常见的补气类药材。"
+            },
+            "当归": {
+                name: "当归",
+                category: "补血类",
+                functions: "常用于补血、活血相关的传统中医药知识学习。",
+                usage: "常见于炖汤或中药方剂文化介绍。",
+                precautions: "孕期、出血倾向或服用抗凝药物者应咨询专业人士。",
+                description: "当归是中医药文化中常见的补血类药材。"
+            },
+            "甘草": {
+                name: "甘草",
+                category: "调和类",
+                functions: "常用于调和诸药、润肺止咳等传统知识学习内容。",
+                usage: "常见于中药方剂中作为调和药材介绍。",
+                precautions: "长期大量使用可能存在风险，应避免自行滥用。",
+                description: "甘草在中医药文化中常作为调和类药材出现。"
+            }
+        },
+        ms: {
+            "人参": {
+                name: "Ginseng",
+                category: "Herba Penguat Qi",
+                functions: "Sering diperkenalkan dalam budaya TCM sebagai herba yang berkaitan dengan sokongan Qi, tenaga dan pengukuhan tubuh.",
+                usage: "Biasa dibincangkan dalam konteks sup, teh atau pembelajaran formula tradisional.",
+                precautions: "Tidak sesuai digunakan sebagai asas rawatan sendiri. Kumpulan khas perlu mendapatkan nasihat profesional.",
+                description: "Ginseng ialah herba penguat Qi yang terkenal dalam pembelajaran budaya TCM."
+            },
+            "枸杞": {
+                name: "Goji Berry",
+                category: "Herba Berkhasiat",
+                functions: "Sering dikaitkan dengan penjagaan hati dan mata, mengurangkan keletihan serta pembelajaran kesihatan umum.",
+                usage: "Biasa digunakan dalam teh, bubur, sup atau pembelajaran penjagaan kesihatan harian.",
+                precautions: "Individu dengan keadaan tubuh khas atau sedang mengambil ubat perlu berhati-hati.",
+                description: "Goji berry sering dikaitkan dengan penjagaan kesihatan harian dalam budaya TCM."
+            },
+            "黄芪": {
+                name: "Astragalus",
+                category: "Herba Penguat Qi",
+                functions: "Sering diperkenalkan dalam topik sokongan Qi dan pertahanan tubuh.",
+                usage: "Biasa dibincangkan dalam konteks sup atau formula tradisional.",
+                precautions: "Penggunaan sendiri secara berlebihan atau jangka panjang tidak digalakkan.",
+                description: "Astragalus ialah herba penguat Qi yang biasa dalam pendidikan budaya TCM."
+            },
+            "当归": {
+                name: "Angelica Sinensis",
+                category: "Herba Penyubur Darah",
+                functions: "Sering diperkenalkan untuk pengetahuan berkaitan penyuburan darah dan peredaran dalam budaya TCM.",
+                usage: "Biasa dibincangkan dalam konteks sup atau formula tradisional.",
+                precautions: "Wanita hamil, individu yang mudah berdarah atau pengguna ubat pencair darah perlu berunding dengan profesional.",
+                description: "Angelica Sinensis ialah herba penyubur darah yang biasa dalam budaya TCM."
+            },
+            "甘草": {
+                name: "Licorice Root",
+                category: "Herba Pengimbang",
+                functions: "Sering diperkenalkan sebagai herba pengimbang dalam formula tradisional dan pembelajaran berkaitan tekak serta paru-paru.",
+                usage: "Biasa diperkenalkan sebagai bahan pengimbang dalam pembelajaran formula TCM.",
+                precautions: "Penggunaan berlebihan jangka panjang mungkin berisiko dan perlu dielakkan.",
+                description: "Licorice root sering muncul sebagai herba pengimbang dalam pembelajaran budaya TCM."
+            }
+        }
+    };
+
+    document.getElementById("languageSelect").value =
+        currentLanguage;
+
+    applyLanguage();
+
+    loadQuizHistory();
+
+    loadFavorites();
+
+    function applyLanguage(){
+
+        const t = translations[currentLanguage];
+
+        document.documentElement.lang = currentLanguage;
+        document.title = t.title;
+        document.getElementById("languageSelect").value = currentLanguage;
+        document.getElementById("welcomeUser").innerText = t.welcome;
+        document.getElementById("logoutBtn").innerText = t.logout;
+        document.getElementById("navHome").innerText = t.home;
+        document.getElementById("navHerb").innerText = t.herbs;
+        document.getElementById("navQuiz").innerText = t.quiz;
+        document.getElementById("navHistory").innerText = t.history;
+        document.getElementById("navPersonal").innerText = t.personal;
+        document.getElementById("quizTitle").innerText = t.quizTitle;
+        document.getElementById("favoriteTitle").innerText = t.favoriteTitle;
+        renderQuizHistory();
+        renderFavorites();
+
+    }
+
+    function loadQuizHistory(){
+
+        fetch("/quiz/history?username=" + encodeURIComponent(username))
+            .then(res => {
+                if(!res.ok) throw new Error("Failed to load quiz history: " + res.status);
+                return res.json();
+            })
+            .then(data => {
+                quizRecords = data || [];
+                renderQuizHistory();
+
+            })
+            .catch(error => {
+
+                console.error(error);
+                document.getElementById("quizHistory").innerHTML =
+                    `<div class="card">${translations[currentLanguage].quizFailed}</div>`;
+
+            });
+
+    }
+
+    function renderQuizHistory(){
+        const t = translations[currentLanguage];
+        const html = quizRecords.length === 0
+            ? `<div class="card">${t.noQuiz}</div>`
+            : quizRecords.map(record => `
+                <div class="card">
+                    ${t.score}: ${record.score}/${record.totalQuestions}<br>
+                    ${t.accuracy}: ${record.accuracy}%
+                </div>
+            `).join("");
+        document.getElementById("quizHistory").innerHTML = html;
+    }
+
+    function loadFavorites(){
+
+        fetch("/favorite/list?username=" + encodeURIComponent(username))
+            .then(res => {
+                if(!res.ok) throw new Error("Failed to load favorites: " + res.status);
+                return res.json();
+            })
+            .then(async data => {
+                try {
+                    const catalogResponse = await fetch("/data/herbs.json?v=20260702-1", {cache:"no-store"});
+                    if(catalogResponse.ok) herbCatalog = await catalogResponse.json();
+                } catch(error) {
+                    console.warn("Herb catalog unavailable", error);
+                }
+
+                favoriteRecords = data || [];
+                renderFavorites();
+
+            })
+            .catch(error => {
+
+                console.error(error);
+
+                document.getElementById("favoriteList").innerHTML =
+                    `<div class="card">${translations[currentLanguage].favoritesFailed}</div>`;
+
+            });
+
+    }
+
+    function escapeHtml(value){
+        return String(value ?? "").replace(/[&<>"']/g, character => ({
+            "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+        })[character]);
+    }
+
+    function renderFavorites(){
+        const t = translations[currentLanguage];
+
+        if(favoriteRecords.length === 0){
+            document.getElementById("favoriteList").innerHTML = `<div class="card">${t.noFavorites}</div>`;
+            return;
+        }
+
+        const html = favoriteRecords.map(item => {
+            const catalogHerb = herbCatalog.find(entry =>
+                Object.values(entry.translations || {}).some(translation => translation.name === item.herbName)
+            );
+            const herb = catalogHerb?.translations?.[currentLanguage]
+                || herbInfo[currentLanguage]?.[item.herbName]
+                || {name:item.herbName, category:"", functions:"", usage:"", precautions:"", description:""};
+
+            return `
+                <div class="herb-card">
+                    <div class="herb-content">
+                        <h3>${escapeHtml(herb.name || item.herbName)}</h3>
+                        <div class="category">${escapeHtml(herb.category)}</div>
+                        <p><b>${t.functions}:</b> ${escapeHtml(herb.functions)}</p>
+                        <p><b>${t.usage}:</b> ${escapeHtml(herb.usage)}</p>
+                        <p><b>${t.precautions}:</b> ${escapeHtml(herb.precautions)}</p>
+                        <p><b>${t.description}:</b> ${escapeHtml(herb.description)}</p>
+                        <button class="remove-btn" data-herb-name="${escapeHtml(item.herbName)}">${t.remove}</button>
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+        const list = document.getElementById("favoriteList");
+        list.innerHTML = html;
+        list.querySelectorAll(".remove-btn").forEach(button => {
+            button.addEventListener("click", () => removeFavorite(button.dataset.herbName));
+        });
+    }
+
+    function removeFavorite(herbName){
+
+        fetch(
+            "/favorite/remove"
+            + "?username=" + encodeURIComponent(username)
+            + "&herbName=" + encodeURIComponent(herbName),
+            {
+                method:"DELETE"
+            }
+        )
+            .then(response => {
+                if(!response.ok) throw new Error("Failed to remove favorite: " + response.status);
+                loadFavorites();
+            })
+            .catch(error => {
+                console.error(error);
+                alert(translations[currentLanguage].removeFailed);
+            });
+    }
+
+    function changeLanguage(){
+
+        currentLanguage = document.getElementById("languageSelect").value;
+        localStorage.setItem("language", currentLanguage);
+        applyLanguage();
+
+    }
+
+    function goHome(){
+        window.location.href = "home.html";
+    }
+
+    function logout(){
+
+        localStorage.clear();
+
+        window.location.href = "login.html";
+
+    }
+
+</script>
+
+<script src="/js/user-avatar.js?v=20260702-1"></script>
+
+</body>
+</html>

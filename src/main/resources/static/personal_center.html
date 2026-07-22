@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Center</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f2;
+        }
+
+        .header{
+
+            background:#2f5d50;
+
+            color:white;
+
+            padding:18px 60px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+        }
+
+        .header-left{
+
+            display:flex;
+
+            align-items:center;
+
+        }
+
+        #welcomeUser{
+
+            font-size:24px;
+
+            font-weight:700;
+
+            color:white;
+
+        }
+
+        .header-avatar-wrap{
+            width:44px;
+            height:44px;
+            margin-right:12px;
+            border-radius:50%;
+            background:#ffffff24;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+            flex:0 0 44px;
+        }
+
+        .header-avatar{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:none;
+        }
+
+        .avatar-fallback{
+            font-size:25px;
+            line-height:1;
+        }
+
+        .header-right{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:20px;
+
+        }
+
+        .header-right select{
+
+            background:white;
+
+            color:#2f5d50;
+
+            border:none;
+
+            padding:10px 18px;
+
+            border-radius:8px;
+
+        }
+
+        .logout-btn{
+
+            background:white;
+
+            color:#2f5d50;
+
+            border:none;
+
+            padding:10px 18px;
+
+            border-radius:8px;
+
+            font-weight:bold;
+
+            cursor:pointer;
+
+            width:auto;
+
+            margin:0;
+
+        }
+
+        .navbar{
+
+            background:white;
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:45px;
+
+            padding:18px;
+
+            box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+        }
+
+        .navbar a{
+
+            color:#444;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+            padding-bottom:6px;
+
+        }
+
+        .navbar .active{
+
+            color:#2f7d68;
+
+            border-bottom:3px solid #2f7d68;
+
+        }
+
+        .container{
+
+            width:1200px;
+
+            margin:40px auto 60px;
+
+        }
+
+        .container {
+            width: 850px;
+            margin: 60px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .section-card{
+
+            background:white;
+
+            padding:30px;
+
+            border-radius:18px;
+
+            box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+            margin-bottom:35px;
+
+        }
+
+        .section-card h2{
+
+            margin-top:0;
+
+            color:#2f5d50;
+
+            border-left:5px solid #2f7d68;
+
+            padding-left:15px;
+
+            margin-bottom:25px;
+
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #2f5d50;
+        }
+
+        .section{
+
+            margin-top:20px;
+
+        }
+
+        .info-item, .overview-card, .trend-box {
+            margin: 14px 0;
+            padding: 16px;
+            background: #f7faf8;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #2f5d50;
+        }
+
+        .rank-value{
+            display:inline-block;
+            margin-left:8px;
+            padding:5px 12px;
+            border-radius:16px;
+            background:#e4b85c;
+            color:#fff;
+            font-weight:700;
+        }
+
+        .rank-progress{
+            display:block;
+            margin-top:8px;
+            color:#66736e;
+            font-size:14px;
+        }
+
+        #recommendationList a{
+            color:#2f5d50;
+            font-weight:700;
+            text-decoration:none;
+            line-height:1.8;
+        }
+
+        #recommendationList a:hover{ text-decoration:underline; }
+
+        .avatar-panel{
+            display:flex;
+            align-items:center;
+            gap:22px;
+            margin-bottom:22px;
+            padding:18px;
+            background:#f7faf8;
+            border-radius:14px;
+        }
+
+        .profile-avatar-wrap{
+            width:110px;
+            height:110px;
+            border-radius:50%;
+            background:#e6eee9;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+            flex:0 0 110px;
+            border:3px solid #fff;
+            box-shadow:0 3px 12px rgba(0,0,0,.12);
+        }
+
+        .profile-avatar{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:none;
+        }
+
+        .profile-avatar-wrap .avatar-fallback{
+            font-size:54px;
+        }
+
+        .avatar-actions{
+            flex:1;
+        }
+
+        .avatar-buttons{
+            display:flex;
+            gap:12px;
+            margin-top:10px;
+        }
+
+        .avatar-buttons button{
+            width:auto;
+            margin:0;
+            padding:10px 18px;
+        }
+
+        .choose-avatar-btn{
+            background:#e6eee9;
+            color:#2f5d50;
+        }
+
+        .upload-avatar-btn{
+            background:#2f7d68;
+            color:white;
+        }
+
+        .upload-avatar-btn:disabled{
+            opacity:.55;
+            cursor:not-allowed;
+        }
+
+        .avatar-status{
+            min-height:20px;
+            margin-top:9px;
+            color:#5f6e68;
+            font-size:14px;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .overview-card{
+
+            background:#f7faf8;
+
+            border-radius:15px;
+
+            padding:22px;
+
+            text-align:center;
+
+            transition:.25s;
+
+            box-shadow:0 3px 10px rgba(0,0,0,.05);
+
+        }
+
+        .overview-card:hover{
+
+            transform:translateY(-5px);
+
+            box-shadow:0 10px 20px rgba(0,0,0,.1);
+
+        }
+
+        .overview-card strong {
+            display: block;
+            color: #2f5d50;
+            font-size: 28px;
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            margin-top: 12px;
+            width: 100%;
+            height: 9px;
+            background: #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2f7d68, #4caf90);
+            border-radius: 8px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 260px;
+            background: white;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .home-btn {
+            background: #2f7d68;
+            color: white;
+        }
+
+        .logout-btn {
+            background: #e9e9e9;
+            color: #333;
+        }
+    </style>
+    <link rel="stylesheet" href="css/guofeng-background.css?v=20260717-1">
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="header-left">
+
+        <span class="header-avatar-wrap">
+            <span id="headerAvatarFallback" class="avatar-fallback">👤</span>
+            <img id="headerAvatar" class="header-avatar" alt="">
+        </span>
+
+        <span id="welcomeUser"></span>
+
+    </div>
+
+    <div class="header-right">
+
+        <select id="languageSelect" onchange="changeLanguage()">
+
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+            <option value="ms">Bahasa Melayu</option>
+
+        </select>
+
+        <button
+                class="logout-btn"
+                id="logoutBtn"
+                onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</div>
+
+<div class="navbar">
+
+    <a href="home.html" data-i18n="home">
+        Home
+    </a>
+
+    <a href="herb.html" data-i18n="herbs">
+        Herb Information
+    </a>
+
+    <a href="quiz.html" data-i18n="quiz">
+        Knowledge Quiz
+    </a>
+
+    <a href="history.html" data-i18n="history">
+        History
+    </a>
+
+    <a href="personal_center.html"
+       class="active" data-i18n="personalCenter">
+
+        Personal Center
+
+    </a>
+
+</div>
+
+<div class="container">
+    <div class="section-card">
+
+        <h2 data-i18n="personalInfo">👤 Personal Information</h2>
+
+        <div class="avatar-panel">
+            <div class="profile-avatar-wrap">
+                <span id="profileAvatarFallback" class="avatar-fallback">👤</span>
+                <img id="profileAvatar" class="profile-avatar" alt="">
+            </div>
+            <div class="avatar-actions">
+                <strong data-i18n="avatarTitle">Profile Photo</strong>
+                <div class="avatar-buttons">
+                    <button type="button" class="choose-avatar-btn" data-i18n="chooseAvatar" onclick="document.getElementById('avatarInput').click()">Choose Image</button>
+                    <button type="button" id="uploadAvatarBtn" class="upload-avatar-btn" data-i18n="uploadAvatar" onclick="uploadAvatar()" disabled>Upload</button>
+                </div>
+                <input id="avatarInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+                <div id="avatarStatus" class="avatar-status" data-i18n="avatarHint">JPG, PNG or WebP, up to 5MB.</div>
+            </div>
+        </div>
+
+        <div class="info-item">
+
+            <span class="label" data-i18n="usernameLabel">👤 Username:</span>
+
+            <span id="username"></span>
+
+        </div>
+
+        <div class="info-item">
+
+            <span class="label" data-i18n="emailLabel">📧 Email:</span>
+
+            <span id="email"></span>
+
+        </div>
+
+        <div class="info-item">
+
+            <span class="label" data-i18n="registrationLabel">📅 Registration Time:</span>
+
+            <span id="createdAt"></span>
+
+        </div>
+
+        <div class="info-item">
+            <span class="label" data-i18n="rankLabel">🏅 Learning Rank:</span>
+            <span id="learningRank" class="rank-value">--</span>
+            <span id="rankProgress" class="rank-progress"></span>
+        </div>
+    </div>
+
+    <div class="section-card">
+
+        <h2 data-i18n="learningOverview">📊 Learning Overview</h2>
+
+        <div class="overview-grid">
+            <div class="overview-card">
+                <span data-i18n="learningProgress">Learning Progress</span>
+                <strong id="learningProgressText">0%</strong>
+                <div class="progress-bar">
+                    <div id="learningProgressBar" class="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div class="overview-card">
+                <span data-i18n="completedQuizzes">Completed Quizzes</span>
+                <strong id="completedTopicsText">0</strong>
+                <div class="progress-bar">
+                    <div id="completedTopicsBar" class="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div class="overview-card">
+                <span data-i18n="latestAccuracy">Latest Quiz Accuracy</span>
+                <strong id="quizAccuracyText">0%</strong>
+                <div class="progress-bar">
+                    <div id="quizAccuracyBar" class="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trend-box">
+            <span class="label" data-i18n="recentTrend">Recent 5 Quiz Score Trend:</span>
+            <canvas id="quizTrendChart" width="760" height="260"></canvas>
+        </div>
+
+        <div class="info-item">
+            <span class="label" data-i18n="recommendedContent">Recommended Learning Content:</span>
+            <ul id="recommendationList">
+                <li>Complete a quiz to receive personalized recommendations.</li>
+            </ul>
+        </div>
+
+        <div class="info-item">
+            <span class="label" data-i18n="quizPerformance">Quiz Performance:</span>
+            <p id="quizPerformanceText">
+                No quiz record yet. Please complete a quiz to view your performance.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const username = localStorage.getItem("username");
+    const API_BASE = "";
+    let currentLanguage = localStorage.getItem("language") || "en";
+    let quizRecords = [];
+    let learningRankProgress = null;
+    let selectedAvatarFile = null;
+    let avatarPreviewUrl = null;
+
+    const translations = {
+        en: {
+            title: "Personal Center", welcome: "Welcome", logout: "Logout",
+            home: "Home", herbs: "Herb Information", quiz: "Knowledge Quiz", history: "History", personalCenter: "Personal Center",
+            personalInfo: "👤 Personal Information", usernameLabel: "👤 Username:", emailLabel: "📧 Email:", registrationLabel: "📅 Registration Time:",
+            rankLabel: "🏅 Learning Rank:", rankNames:{BRONZE:"Bronze", SILVER:"Silver", GOLD:"Gold"}, rankNext:"{count} more correct answers to reach {rank}.", rankMax:"Highest rank reached!", totalCorrect:"Total correct: {count}.",
+            learningOverview: "📊 Learning Overview", learningProgress: "Learning Progress", completedQuizzes: "Completed Quizzes", latestAccuracy: "Latest Quiz Accuracy",
+            recentTrend: "Recent 5 Quiz Score Trend:", recommendedContent: "Recommended Learning Content:", quizPerformance: "Quiz Performance:",
+            recommendation1: "Basic concepts of Traditional Chinese Medicine", recommendation2: "Yin-Yang theory and Five Elements", recommendation3: "Common Chinese herbs and their functions",
+            recommendationNoData:"Complete a quiz to receive personalized recommendations.", recommendationItem:"Review {course} — recent performance {correct}/{total} ({accuracy}%).",
+            courseNames:{basics:"Foundations of Traditional Chinese Medicine",theories:"Yin–Yang and the Five Elements",herbs:"Common Chinese Herbs",diagnostics:"Traditional Diagnosis and Meridian Theory",wellness:"TCM Wellness and Food Therapy",acupuncture:"Acupuncture and Moxibustion Culture"},
+            avatarTitle: "Profile Photo", chooseAvatar: "Choose Image", uploadAvatar: "Upload", avatarHint: "JPG, PNG or WebP, up to 5MB.",
+            avatarInvalid: "Please choose a JPG, PNG or WebP image up to 5MB.", avatarUploading: "Uploading...", avatarSuccess: "Profile photo updated.", avatarFailed: "Failed to upload profile photo.",
+            loginFirst: "Please login first.", userNotFound: "User not found. Please login again.", profileFailed: "Failed to load user profile.", noQuiz: "No quiz record yet. Please complete a quiz to view your performance.",
+            excellent: "Excellent performance. You have a strong understanding of TCM cultural knowledge.", good: "Good progress. You may review Yin-Yang theory, Five Elements, and common herbs.", revise: "You may need more revision. It is recommended to start with basic TCM concepts.", accuracySuffix: " Latest quiz accuracy: {accuracy}%.", chartEmpty: "No quiz history yet."
+        },
+        zh: {
+            title: "个人中心", welcome: "欢迎", logout: "退出登录",
+            home: "首页", herbs: "草药信息", quiz: "知识测验", history: "历史记录", personalCenter: "个人中心",
+            personalInfo: "👤 个人信息", usernameLabel: "👤 用户名：", emailLabel: "📧 电子邮箱：", registrationLabel: "📅 注册时间：",
+            rankLabel: "🏅 学习段位：", rankNames:{BRONZE:"青铜", SILVER:"白银", GOLD:"黄金"}, rankNext:"再答对 {count} 题即可升级为{rank}。", rankMax:"已达到最高段位！", totalCorrect:"累计答对：{count} 题。",
+            learningOverview: "📊 学习概览", learningProgress: "学习进度", completedQuizzes: "已完成测验", latestAccuracy: "最近测验正确率",
+            recentTrend: "最近 5 次测验成绩趋势：", recommendedContent: "推荐学习内容：", quizPerformance: "测验表现：",
+            recommendation1: "中医基础概念", recommendation2: "阴阳理论与五行学说", recommendation3: "常见中药材及其功效",
+            recommendationNoData:"完成一次测验后，将根据结果生成个性化推荐。", recommendationItem:"建议复习《{course}》——近期答题 {correct}/{total}（{accuracy}%）。",
+            courseNames:{basics:"中医基础概念",theories:"阴阳理论与五行学说",herbs:"常见中药材及其功效",diagnostics:"中医诊法与经络理论",wellness:"中医养生与食疗",acupuncture:"针灸与艾灸文化"},
+            avatarTitle: "个人头像", chooseAvatar: "选择图片", uploadAvatar: "上传头像", avatarHint: "支持 JPG、PNG 或 WebP，最大 5MB。",
+            avatarInvalid: "请选择不超过 5MB 的 JPG、PNG 或 WebP 图片。", avatarUploading: "正在上传……", avatarSuccess: "头像更新成功。", avatarFailed: "头像上传失败。",
+            loginFirst: "请先登录。", userNotFound: "用户不存在，请重新登录。", profileFailed: "个人资料加载失败。", noQuiz: "暂无测验记录，请完成测验后查看表现。",
+            excellent: "表现优秀，你对中医药文化知识掌握得很好。", good: "进步良好，建议复习阴阳、五行和常见草药知识。", revise: "还需要继续复习，建议从中医基础概念开始。", accuracySuffix: " 最近一次测验正确率：{accuracy}%。", chartEmpty: "暂无测验记录。"
+        },
+        ms: {
+            title: "Pusat Peribadi", welcome: "Selamat Datang", logout: "Log Keluar",
+            home: "Laman Utama", herbs: "Maklumat Herba", quiz: "Kuiz Pengetahuan", history: "Sejarah", personalCenter: "Pusat Peribadi",
+            personalInfo: "👤 Maklumat Peribadi", usernameLabel: "👤 Nama Pengguna:", emailLabel: "📧 E-mel:", registrationLabel: "📅 Tarikh Pendaftaran:",
+            rankLabel: "🏅 Kedudukan Pembelajaran:", rankNames:{BRONZE:"Gangsa", SILVER:"Perak", GOLD:"Emas"}, rankNext:"{count} lagi jawapan betul untuk mencapai {rank}.", rankMax:"Kedudukan tertinggi dicapai!", totalCorrect:"Jumlah betul: {count}.",
+            learningOverview: "📊 Gambaran Pembelajaran", learningProgress: "Kemajuan Pembelajaran", completedQuizzes: "Kuiz Selesai", latestAccuracy: "Ketepatan Kuiz Terkini",
+            recentTrend: "Trend Skor 5 Kuiz Terkini:", recommendedContent: "Kandungan Pembelajaran Disyorkan:", quizPerformance: "Prestasi Kuiz:",
+            recommendation1: "Konsep asas Perubatan Tradisional Cina", recommendation2: "Teori Yin-Yang dan Lima Unsur", recommendation3: "Herba Cina biasa dan fungsinya",
+            recommendationNoData:"Lengkapkan kuiz untuk menerima cadangan peribadi.", recommendationItem:"Ulang kaji {course} — keputusan terkini {correct}/{total} ({accuracy}%).",
+            courseNames:{basics:"Asas Perubatan Tradisional Cina",theories:"Yin–Yang dan Lima Unsur",herbs:"Herba Cina Biasa",diagnostics:"Diagnosis Tradisional dan Meridian",wellness:"Penjagaan Kesihatan dan Terapi Makanan",acupuncture:"Budaya Akupunktur dan Moksibusi"},
+            avatarTitle: "Foto Profil", chooseAvatar: "Pilih Imej", uploadAvatar: "Muat Naik", avatarHint: "JPG, PNG atau WebP, maksimum 5MB.",
+            avatarInvalid: "Sila pilih imej JPG, PNG atau WebP sehingga 5MB.", avatarUploading: "Sedang memuat naik...", avatarSuccess: "Foto profil dikemas kini.", avatarFailed: "Gagal memuat naik foto profil.",
+            loginFirst: "Sila log masuk dahulu.", userNotFound: "Pengguna tidak dijumpai. Sila log masuk semula.", profileFailed: "Gagal memuatkan profil pengguna.", noQuiz: "Belum ada rekod kuiz. Sila lengkapkan kuiz untuk melihat prestasi anda.",
+            excellent: "Prestasi cemerlang. Anda memahami pengetahuan budaya TCM dengan baik.", good: "Kemajuan yang baik. Anda boleh mengulang kaji Yin-Yang, Lima Unsur dan herba biasa.", revise: "Anda memerlukan lebih banyak ulang kaji. Mulakan dengan konsep asas TCM.", accuracySuffix: " Ketepatan kuiz terkini: {accuracy}%.", chartEmpty: "Belum ada sejarah kuiz."
+        }
+    };
+
+    if (!username) {
+        alert(translations[currentLanguage].loginFirst);
+        window.location.href = "login.html";
+    } else {
+        applyLanguage();
+        loadUserProfile();
+        loadQuizHistory();
+        loadLearningRank();
+    }
+
+    function applyLanguage() {
+        const text = translations[currentLanguage];
+        document.documentElement.lang = currentLanguage;
+        document.title = text.title;
+        document.getElementById("languageSelect").value = currentLanguage;
+        document.getElementById("welcomeUser").textContent = `${text.welcome}, ${username}`;
+        document.getElementById("logoutBtn").textContent = text.logout;
+        document.querySelectorAll("[data-i18n]").forEach(element => {
+            element.textContent = text[element.dataset.i18n];
+        });
+        updateLearningOverview(quizRecords);
+        drawQuizTrendChart(quizRecords);
+        renderLearningRank();
+        renderRecommendations();
+    }
+
+    async function loadLearningRank() {
+        try {
+            const response = await fetch(`${API_BASE}/quiz/progress?username=${encodeURIComponent(username)}`);
+            if (!response.ok) throw new Error(response.status);
+            learningRankProgress = await response.json();
+            renderLearningRank();
+        } catch (error) {
+            console.error("Failed to load learning rank", error);
+        }
+    }
+
+    function renderLearningRank() {
+        if (!learningRankProgress) return;
+        const text = translations[currentLanguage];
+        const rank = learningRankProgress.rank || "BRONZE";
+        const nextRank = rank === "BRONZE" ? "SILVER" : "GOLD";
+        document.getElementById("learningRank").textContent = text.rankNames[rank];
+        const totalText = text.totalCorrect.replace("{count}", learningRankProgress.totalCorrect);
+        const nextText = rank === "GOLD"
+            ? text.rankMax
+            : text.rankNext
+                .replace("{count}", learningRankProgress.correctNeeded)
+                .replace("{rank}", text.rankNames[nextRank]);
+        document.getElementById("rankProgress").textContent = totalText + " " + nextText;
+    }
+
+    function changeLanguage() {
+        currentLanguage = document.getElementById("languageSelect").value;
+        localStorage.setItem("language", currentLanguage);
+        applyLanguage();
+    }
+
+    function loadUserProfile() {
+        fetch(`${API_BASE}/user/profile?username=${encodeURIComponent(username)}`)
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                return response.json();
+            })
+            .then(data => {
+                if (data.message && !data.username) {
+                    alert(translations[currentLanguage].userNotFound);
+                    localStorage.removeItem("username");
+                    window.location.href = "login.html";
+                } else {
+                    document.getElementById("username").innerText = data.username || "";
+                    document.getElementById("email").innerText = data.email || "";
+                    document.getElementById("createdAt").innerText = data.createdAt || "";
+                    if (data.avatarUrl) {
+                        showAvatar(API_BASE + data.avatarUrl + "&v=" + Date.now());
+                    } else {
+                        showDefaultAvatar();
+                    }
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert(translations[currentLanguage].profileFailed);
+            });
+    }
+
+    function showAvatar(url) {
+        ["headerAvatar", "profileAvatar"].forEach(id => {
+            const image = document.getElementById(id);
+            image.onload = () => {
+                image.style.display = "block";
+                document.getElementById(id + "Fallback").style.display = "none";
+            };
+            image.onerror = showDefaultAvatar;
+            image.src = url;
+        });
+    }
+
+    function showDefaultAvatar() {
+        ["headerAvatar", "profileAvatar"].forEach(id => {
+            const image = document.getElementById(id);
+            image.style.display = "none";
+            image.removeAttribute("src");
+            document.getElementById(id + "Fallback").style.display = "inline";
+        });
+    }
+
+    document.getElementById("avatarInput").addEventListener("change", event => {
+        const file = event.target.files[0];
+        const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+        const text = translations[currentLanguage];
+        if (!file || !allowedTypes.includes(file.type) || file.size > 5 * 1024 * 1024) {
+            selectedAvatarFile = null;
+            document.getElementById("uploadAvatarBtn").disabled = true;
+            document.getElementById("avatarStatus").textContent = text.avatarInvalid;
+            return;
+        }
+
+        selectedAvatarFile = file;
+        document.getElementById("uploadAvatarBtn").disabled = false;
+        document.getElementById("avatarStatus").textContent = file.name;
+        if (avatarPreviewUrl) URL.revokeObjectURL(avatarPreviewUrl);
+        avatarPreviewUrl = URL.createObjectURL(file);
+        showAvatar(avatarPreviewUrl);
+    });
+
+    async function uploadAvatar() {
+        if (!selectedAvatarFile) return;
+        const text = translations[currentLanguage];
+        const button = document.getElementById("uploadAvatarBtn");
+        const status = document.getElementById("avatarStatus");
+        const form = new FormData();
+        form.append("username", username);
+        form.append("avatar", selectedAvatarFile);
+        button.disabled = true;
+        status.textContent = text.avatarUploading;
+
+        try {
+            const response = await fetch(`${API_BASE}/user/avatar`, {method: "POST", body: form});
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || text.avatarFailed);
+            showAvatar(API_BASE + data.avatarUrl + "&v=" + Date.now());
+            selectedAvatarFile = null;
+            document.getElementById("avatarInput").value = "";
+            status.textContent = text.avatarSuccess;
+        } catch (error) {
+            console.error(error);
+            status.textContent = error.message || text.avatarFailed;
+            button.disabled = false;
+        }
+    }
+
+    function loadQuizHistory() {
+        fetch(`${API_BASE}/quiz/history?username=${encodeURIComponent(username)}`)
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                return response.json();
+            })
+            .then(records => {
+                quizRecords = records || [];
+                updateLearningOverview(quizRecords);
+                drawQuizTrendChart(quizRecords);
+                renderRecommendations();
+            })
+            .catch(error => {
+                console.error(error);
+                drawQuizTrendChart([]);
+            });
+    }
+
+    function renderRecommendations() {
+        const text = translations[currentLanguage];
+        const totals = {};
+        quizRecords.forEach(record => {
+            if (!record.topicStats) return;
+            try {
+                const stats = JSON.parse(record.topicStats);
+                Object.entries(stats).forEach(([courseId, result]) => {
+                    const current = totals[courseId] || {correct:0,total:0};
+                    current.correct += Number(result.correct) || 0;
+                    current.total += Number(result.total) || 0;
+                    totals[courseId] = current;
+                });
+            } catch (error) {
+                console.warn("Invalid topic statistics", error);
+            }
+        });
+
+        const ranked = Object.entries(totals)
+            .filter(([courseId,result]) => text.courseNames[courseId] && result.total > 0)
+            .map(([courseId,result]) => ({...result,courseId,accuracy:Math.round(result.correct * 100 / result.total)}))
+            .sort((left,right) => left.accuracy - right.accuracy || right.total - left.total)
+            .slice(0,3);
+
+        const list = document.getElementById("recommendationList");
+        list.innerHTML = "";
+        if (ranked.length === 0) {
+            const item = document.createElement("li");
+            item.textContent = text.recommendationNoData;
+            list.appendChild(item);
+            return;
+        }
+
+        ranked.forEach(result => {
+            const item = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = `quiz.html?course=${encodeURIComponent(result.courseId)}`;
+            link.textContent = text.recommendationItem
+                .replace("{course}", text.courseNames[result.courseId])
+                .replace("{correct}", result.correct)
+                .replace("{total}", result.total)
+                .replace("{accuracy}", result.accuracy);
+            item.appendChild(link);
+            list.appendChild(item);
+        });
+    }
+
+    function updateLearningOverview(records) {
+        const text = translations[currentLanguage];
+
+        if (!records || records.length === 0) {
+            document.getElementById("learningProgressText").innerText = "0%";
+            document.getElementById("learningProgressBar").style.width = "0%";
+            document.getElementById("completedTopicsText").innerText = "0";
+            document.getElementById("completedTopicsBar").style.width = "0%";
+            document.getElementById("quizAccuracyText").innerText = "0%";
+            document.getElementById("quizAccuracyBar").style.width = "0%";
+            document.getElementById("quizPerformanceText").innerText = text.noQuiz;
+            return;
+        }
+
+        const latest = records[records.length - 1];
+        const latestAccuracy = latest.accuracy;
+        const completedCount = records.length;
+
+        let totalAccuracy = 0;
+        records.forEach(record => {
+            totalAccuracy += record.accuracy;
+        });
+
+        const averageAccuracy = Math.round(totalAccuracy / records.length);
+        const learningProgress = Math.min(averageAccuracy, 100);
+
+        document.getElementById("quizAccuracyText").innerText = latestAccuracy + "%";
+        document.getElementById("quizAccuracyBar").style.width = latestAccuracy + "%";
+
+        document.getElementById("completedTopicsText").innerText = completedCount;
+        document.getElementById("completedTopicsBar").style.width = Math.min(completedCount * 20, 100) + "%";
+
+        document.getElementById("learningProgressText").innerText = learningProgress + "%";
+        document.getElementById("learningProgressBar").style.width = learningProgress + "%";
+
+        let performanceText = "";
+
+        if (latestAccuracy >= 80) {
+            performanceText = text.excellent;
+        } else if (latestAccuracy >= 60) {
+            performanceText = text.good;
+        } else {
+            performanceText = text.revise;
+        }
+
+        document.getElementById("quizPerformanceText").innerText =
+            performanceText + text.accuracySuffix.replace("{accuracy}", latestAccuracy);
+    }
+
+    function drawQuizTrendChart(records) {
+        const canvas = document.getElementById("quizTrendChart");
+        const ctx = canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 背景网格
+        ctx.strokeStyle = "#dddddd";
+        ctx.lineWidth = 1;
+
+        for (let i = 0; i <= 5; i++) {
+            const y = 30 + i * 40;
+
+            ctx.beginPath();
+            ctx.moveTo(50, y);
+            ctx.lineTo(730, y);
+            ctx.stroke();
+
+            ctx.fillStyle = "#777";
+            ctx.font = "12px Arial";
+            ctx.fillText((100 - i * 20) + "%", 10, y + 4);
+        }
+
+        if (!records || records.length === 0) {
+            ctx.fillStyle = "#777";
+            ctx.font = "16px Arial";
+            ctx.fillText(translations[currentLanguage].chartEmpty, 310, 130);
+            return;
+        }
+
+        const recentRecords = records.slice(-5);
+        const points = recentRecords.map((record, index) => {
+            const x = 80 + index * (620 / Math.max(recentRecords.length - 1, 1));
+            const y = 230 - (record.accuracy / 100) * 200;
+
+            return {
+                x: x,
+                y: y,
+                accuracy: record.accuracy
+            };
+        });
+
+        // 折线
+        ctx.strokeStyle = "#2f7d68";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+
+        points.forEach((point, index) => {
+            if (index === 0) {
+                ctx.moveTo(point.x, point.y);
+            } else {
+                ctx.lineTo(point.x, point.y);
+            }
+        });
+
+        ctx.stroke();
+
+        // 点和文字
+        points.forEach((point, index) => {
+            ctx.fillStyle = "#2f7d68";
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "#333";
+            ctx.font = "13px Arial";
+            ctx.fillText(point.accuracy + "%", point.x - 12, point.y - 12);
+            ctx.fillText("T" + (index + 1), point.x - 8, 250);
+        });
+    }
+
+    function goHome() {
+        window.location.href = "home.html";
+    }
+
+    function logout() {
+        localStorage.removeItem("username");
+        window.location.href = "login.html";
+    }
+</script>
+
+<script src="/js/user-avatar.js?v=20260702-1"></script>
+
+</body>
+</html>

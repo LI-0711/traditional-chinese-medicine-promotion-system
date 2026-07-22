@@ -1,0 +1,86 @@
+[
+  {
+    "id":"ginseng","image":"images/herbs/ginseng.jpg","latinName":"Panax ginseng","translations":{
+      "zh":{"name":"人参","category":"补气类","functions":"传统中医药文化中常用于补气、扶正和体力调养。","usage":"常见于煲汤、泡茶及传统方剂的文化介绍。","precautions":"不应作为自行治疗依据；孕期、慢性病患者或正在服药者应先咨询专业人士。","description":"五加科植物人参的干燥根，是常见的补气类药材。"},
+      "en":{"name":"Ginseng","category":"Qi-tonifying herb","functions":"Traditionally discussed for supporting qi, vitality and general resilience.","usage":"Commonly presented in soups, teas and traditional formula education.","precautions":"Do not use as a basis for self-treatment; seek professional advice if pregnant, chronically ill or taking medicine.","description":"The dried root of Panax ginseng, a well-known herb in TCM culture."},
+      "ms":{"name":"Ginseng","category":"Herba penguat qi","functions":"Secara tradisi dibincangkan untuk menyokong qi, tenaga dan daya tahan badan.","usage":"Lazim diperkenalkan dalam sup, teh dan pembelajaran formula tradisional.","precautions":"Jangan jadikan asas rawatan sendiri; dapatkan nasihat profesional jika hamil, berpenyakit kronik atau mengambil ubat.","description":"Akar kering Panax ginseng, herba yang terkenal dalam budaya TCM."}
+    }
+  },
+  {
+    "id":"goji","image":"images/herbs/goji.jpg","latinName":"Lycium barbarum","translations":{
+      "zh":{"name":"枸杞子","category":"滋补类","functions":"传统上与养肝明目及日常调养相关。","usage":"常用于泡茶、煮粥或煲汤。","precautions":"正在服药、血糖异常或体质特殊者应先咨询专业人士。","description":"茄科植物宁夏枸杞的成熟果实，常见于药食文化。"},
+      "en":{"name":"Goji Berry","category":"Nourishing herb","functions":"Traditionally associated with liver and eye nourishment and everyday wellness.","usage":"Often used in tea, porridge or soup.","precautions":"People taking medicine or managing blood sugar should seek professional advice.","description":"The mature fruit of Lycium barbarum, widely used in food and TCM culture."},
+      "ms":{"name":"Buah Goji","category":"Herba berkhasiat","functions":"Secara tradisi dikaitkan dengan penjagaan hati, mata dan kesihatan harian.","usage":"Sering digunakan dalam teh, bubur atau sup.","precautions":"Individu yang mengambil ubat atau mengawal gula darah perlu mendapatkan nasihat profesional.","description":"Buah matang Lycium barbarum yang biasa dalam budaya makanan dan TCM."}
+    }
+  },
+  {
+    "id":"astragalus","image":"images/herbs/astragalus.jpg","latinName":"Astragalus membranaceus","translations":{
+      "zh":{"name":"黄芪","category":"补气类","functions":"传统上用于补气固表相关的中医药知识。","usage":"常见于煲汤和传统方剂介绍。","precautions":"不建议自行长期或大量使用；免疫相关疾病患者应先咨询专业人士。","description":"豆科植物蒙古黄芪或膜荚黄芪的干燥根。"},
+      "en":{"name":"Astragalus","category":"Qi-tonifying herb","functions":"Traditionally discussed in relation to supporting qi and the body's exterior defense.","usage":"Often presented in soups and traditional formula education.","precautions":"Avoid prolonged or excessive self-use; consult a professional for immune-related conditions.","description":"The dried root of Astragalus membranaceus and related medicinal species."},
+      "ms":{"name":"Astragalus","category":"Herba penguat qi","functions":"Secara tradisi dibincangkan untuk menyokong qi dan pertahanan luaran badan.","usage":"Sering diperkenalkan dalam sup dan formula tradisional.","precautions":"Elakkan penggunaan sendiri secara lama atau berlebihan; rujuk profesional bagi keadaan berkaitan imun.","description":"Akar kering Astragalus membranaceus dan spesies perubatan berkaitan."}
+    }
+  },
+  {
+    "id":"danggui","image":"images/herbs/danggui.jpg","latinName":"Angelica sinensis","translations":{
+      "zh":{"name":"当归","category":"补血类","functions":"传统中医药文化中常与补血、活血知识相关。","usage":"常见于煲汤和传统方剂介绍。","precautions":"孕期、有出血倾向或使用抗凝药者应咨询专业人士。","description":"伞形科植物当归的干燥根。"},
+      "en":{"name":"Chinese Angelica","category":"Blood-nourishing herb","functions":"Traditionally associated with nourishing and moving blood in TCM theory.","usage":"Often discussed in soups and traditional formulas.","precautions":"Seek professional advice during pregnancy, with bleeding disorders or when using anticoagulants.","description":"The dried root of Angelica sinensis."},
+      "ms":{"name":"Angelika Cina","category":"Herba penyubur darah","functions":"Secara tradisi dikaitkan dengan menyubur dan menggerakkan darah dalam teori TCM.","usage":"Sering dibincangkan dalam sup dan formula tradisional.","precautions":"Dapatkan nasihat profesional ketika hamil, mengalami gangguan pendarahan atau menggunakan antikoagulan.","description":"Akar kering Angelica sinensis."}
+    }
+  },
+  {
+    "id":"licorice","image":"images/herbs/licorice.jpg","latinName":"Glycyrrhiza uralensis","translations":{
+      "zh":{"name":"甘草","category":"调和类","functions":"传统方剂中常用于调和诸药，也见于咽喉相关知识介绍。","usage":"多作为传统方剂组成部分介绍。","precautions":"长期或大量使用可能带来血压及电解质风险。","description":"豆科甘草属植物的干燥根和根茎。"},
+      "en":{"name":"Licorice Root","category":"Harmonizing herb","functions":"Traditionally used to harmonize formula ingredients and discussed in throat-related contexts.","usage":"Usually presented as one component of traditional formulas.","precautions":"Long-term or high intake can affect blood pressure and electrolytes.","description":"The dried root and rhizome of medicinal Glycyrrhiza species."},
+      "ms":{"name":"Akar Likuoris","category":"Herba pengimbang","functions":"Secara tradisi digunakan untuk mengimbangi ramuan formula dan dalam topik berkaitan tekak.","usage":"Biasanya diperkenalkan sebagai salah satu komponen formula tradisional.","precautions":"Pengambilan lama atau tinggi boleh menjejaskan tekanan darah dan elektrolit.","description":"Akar dan rizom kering spesies Glycyrrhiza perubatan."}
+    }
+  },
+  {
+    "id":"ginger","image":"images/herbs/ginger.png","latinName":"Zingiber officinale","translations":{
+      "zh":{"name":"生姜","category":"解表类","functions":"传统上与散寒、温中及和胃知识相关。","usage":"常用于饮食、姜茶及传统方剂介绍。","precautions":"胃部敏感、出血风险或正在服药者不宜大量自行使用。","description":"姜科植物姜的新鲜根茎，也是常见食材。"},
+      "en":{"name":"Fresh Ginger","category":"Exterior-releasing herb","functions":"Traditionally associated with dispersing cold, warming the middle and settling the stomach.","usage":"Used in food, ginger tea and traditional formula education.","precautions":"Avoid excessive self-use with gastric sensitivity, bleeding risk or interacting medicines.","description":"The fresh rhizome of Zingiber officinale and a familiar culinary ingredient."},
+      "ms":{"name":"Halia Segar","category":"Herba pelepas luaran","functions":"Secara tradisi dikaitkan dengan mengusir sejuk, memanaskan bahagian tengah dan menenangkan perut.","usage":"Digunakan dalam makanan, teh halia dan pembelajaran formula tradisional.","precautions":"Elakkan penggunaan berlebihan jika perut sensitif, berisiko pendarahan atau mengambil ubat berkaitan.","description":"Rizom segar Zingiber officinale dan bahan masakan yang lazim."}
+    }
+  },
+  {
+    "id":"jujube","image":"images/herbs/jujube.png","latinName":"Ziziphus jujuba","translations":{
+      "zh":{"name":"大枣","category":"补气类","functions":"传统上与补中益气、养血及调和药性相关。","usage":"常用于煲汤、煮粥或传统方剂。","precautions":"含糖量较高，血糖管理人群应注意用量。","description":"鼠李科植物枣的成熟果实，兼具食用文化。"},
+      "en":{"name":"Chinese Jujube","category":"Qi-tonifying herb","functions":"Traditionally associated with supporting the middle, nourishing blood and harmonizing formulas.","usage":"Often used in soup, porridge or traditional formulas.","precautions":"Naturally high in sugar; portions matter for people managing blood glucose.","description":"The mature fruit of Ziziphus jujuba, also widely eaten as food."},
+      "ms":{"name":"Kurma Merah Cina","category":"Herba penguat qi","functions":"Secara tradisi dikaitkan dengan menyokong bahagian tengah, menyuburkan darah dan mengimbangi formula.","usage":"Sering digunakan dalam sup, bubur atau formula tradisional.","precautions":"Kandungan gula semula jadi tinggi; kawal bahagian jika mengurus glukosa darah.","description":"Buah matang Ziziphus jujuba yang turut dimakan sebagai makanan."}
+    }
+  },
+  {
+    "id":"chrysanthemum","image":"images/herbs/chrysanthemum.png","latinName":"Chrysanthemum morifolium","translations":{
+      "zh":{"name":"菊花","category":"清热类","functions":"传统上与疏散风热、清肝明目相关。","usage":"常见于代茶饮和传统配伍介绍。","precautions":"对菊科植物过敏或体质特殊者应谨慎。","description":"菊科植物菊的干燥头状花序。"},
+      "en":{"name":"Chrysanthemum Flower","category":"Heat-clearing herb","functions":"Traditionally associated with dispersing wind-heat and supporting eye comfort.","usage":"Commonly infused as tea or presented in traditional combinations.","precautions":"Use caution with allergies to plants in the daisy family.","description":"The dried flower head of Chrysanthemum morifolium."},
+      "ms":{"name":"Bunga Kekwa","category":"Herba penyejuk haba","functions":"Secara tradisi dikaitkan dengan menyuraikan angin-haba dan menyokong keselesaan mata.","usage":"Lazim direndam sebagai teh atau diperkenalkan dalam gabungan tradisional.","precautions":"Berhati-hati jika alah kepada tumbuhan keluarga daisi.","description":"Kepala bunga kering Chrysanthemum morifolium."}
+    }
+  },
+  {
+    "id":"peppermint","image":"images/herbs/peppermint.png","latinName":"Mentha haplocalyx","translations":{
+      "zh":{"name":"薄荷","category":"解表类","functions":"传统上与疏散风热、清利头目及利咽相关。","usage":"少量用于茶饮或传统方剂介绍。","precautions":"精油浓度较高，不应随意内服；幼儿使用需格外谨慎。","description":"唇形科植物薄荷的干燥地上部分。"},
+      "en":{"name":"Chinese Mint","category":"Exterior-releasing herb","functions":"Traditionally associated with dispersing wind-heat and soothing the head and throat.","usage":"Used sparingly in infusions and traditional formulas.","precautions":"Concentrated essential oil should not be swallowed casually; extra caution is needed for children.","description":"The dried aerial parts of Mentha haplocalyx."},
+      "ms":{"name":"Pudina Cina","category":"Herba pelepas luaran","functions":"Secara tradisi dikaitkan dengan menyuraikan angin-haba serta melegakan kepala dan tekak.","usage":"Digunakan sedikit dalam rendaman dan formula tradisional.","precautions":"Minyak pati pekat tidak patut ditelan sewenang-wenangnya; lebih berhati-hati untuk kanak-kanak.","description":"Bahagian atas tanah Mentha haplocalyx yang dikeringkan."}
+    }
+  },
+  {
+    "id":"lotus_seed","image":"images/herbs/lotus-seed.png","latinName":"Nelumbo nucifera","translations":{
+      "zh":{"name":"莲子","category":"收涩类","functions":"传统上与补脾、养心及固涩知识相关。","usage":"常用于甜汤、粥品和传统配伍。","precautions":"消化不适或便秘时应注意用量。","description":"睡莲科植物莲的成熟种子。"},
+      "en":{"name":"Lotus Seed","category":"Stabilizing herb","functions":"Traditionally associated with supporting the spleen, nourishing the heart and stabilizing.","usage":"Commonly used in desserts, porridge and traditional combinations.","precautions":"Portion control may help if digestion is sluggish or constipation occurs.","description":"The mature seed of Nelumbo nucifera."},
+      "ms":{"name":"Biji Teratai","category":"Herba penstabil","functions":"Secara tradisi dikaitkan dengan menyokong limpa, menyuburkan jantung dan menstabilkan.","usage":"Lazim digunakan dalam pencuci mulut, bubur dan gabungan tradisional.","precautions":"Kawal jumlah jika penghadaman perlahan atau mengalami sembelit.","description":"Biji matang Nelumbo nucifera."}
+    }
+  },
+  {
+    "id":"cinnamon","image":"images/herbs/cinnamon.png","latinName":"Cinnamomum cassia","translations":{
+      "zh":{"name":"肉桂","category":"温里类","functions":"传统上与温里散寒、助阳相关。","usage":"少量见于烹饪、饮品及传统方剂介绍。","precautions":"孕期、肝病患者或使用抗凝药者不宜自行大量使用。","description":"樟科植物肉桂的干燥树皮。"},
+      "en":{"name":"Chinese Cinnamon","category":"Interior-warming herb","functions":"Traditionally associated with warming the interior, dispersing cold and supporting yang.","usage":"Used in small amounts in cooking, drinks and traditional formulas.","precautions":"Avoid high self-directed intake during pregnancy, with liver disease or anticoagulant use.","description":"The dried bark of Cinnamomum cassia."},
+      "ms":{"name":"Kayu Manis Cina","category":"Herba pemanas dalaman","functions":"Secara tradisi dikaitkan dengan memanaskan dalaman, mengusir sejuk dan menyokong yang.","usage":"Digunakan sedikit dalam masakan, minuman dan formula tradisional.","precautions":"Elakkan pengambilan sendiri yang tinggi ketika hamil, berpenyakit hati atau menggunakan antikoagulan.","description":"Kulit kering Cinnamomum cassia."}
+    }
+  },
+  {
+    "id":"tangerine_peel","image":"images/herbs/tangerine-peel.png","latinName":"Citrus reticulata","translations":{
+      "zh":{"name":"陈皮","category":"理气类","functions":"传统上与理气健脾、燥湿化痰知识相关。","usage":"常用于煲汤、茶饮及传统方剂。","precautions":"口干或体质偏燥者应注意用量，并避免以食疗替代治疗。","description":"芸香科植物橘及其栽培变种的干燥成熟果皮。"},
+      "en":{"name":"Aged Tangerine Peel","category":"Qi-regulating herb","functions":"Traditionally associated with regulating qi, supporting digestion and transforming dampness.","usage":"Often used in soups, infusions and traditional formulas.","precautions":"Use moderately if prone to dryness, and do not replace needed treatment with food therapy.","description":"The dried mature peel of Citrus reticulata varieties."},
+      "ms":{"name":"Kulit Limau Kering","category":"Herba pengawal qi","functions":"Secara tradisi dikaitkan dengan mengawal qi, menyokong penghadaman dan menangani kelembapan.","usage":"Sering digunakan dalam sup, rendaman dan formula tradisional.","precautions":"Gunakan sederhana jika mudah kering dan jangan gantikan rawatan yang diperlukan dengan terapi makanan.","description":"Kulit buah matang Citrus reticulata yang dikeringkan."}
+    }
+  }
+]

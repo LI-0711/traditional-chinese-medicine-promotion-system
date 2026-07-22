@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - TCM Cultural Popular Science System</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                    linear-gradient(rgba(240,248,243,0.72), rgba(240,248,243,0.72)),
+                    url("images/tcm-bg.jpg");
+            background-size: cover;
+            background-position: center;
+            transition: 0.4s;
+        }
+
+        body.dark {
+            background:
+                    linear-gradient(rgba(10,25,20,0.78), rgba(10,25,20,0.78)),
+                    url("images/tcm-bg.jpg");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .card {
+            width: 430px;
+            background: rgba(255,255,255,0.92);
+            padding: 40px;
+            border-radius: 22px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+            animation: fadeIn 0.8s ease;
+        }
+
+        body.dark .card {
+            background: rgba(25,35,32,0.92);
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #2f5d50;
+            margin-bottom: 5px;
+        }
+
+        body.dark h1 {
+            color: #9ee0c5;
+        }
+
+        .subtitle, .system-name {
+            text-align: center;
+            color: #666;
+        }
+
+        body.dark .subtitle,
+        body.dark .system-name {
+            color: #cfded8;
+        }
+
+        .system-name {
+            font-size: 13px;
+            margin: 10px 0 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2f7d68, #3f9b82);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(47,125,104,0.4);
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: 1px solid #2f7d68;
+            color: #2f7d68;
+            margin-top: 0;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        body.dark .mode-btn {
+            color: #9ee0c5;
+            border-color: #9ee0c5;
+        }
+
+        .link {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .link a {
+            color: #2f5d50;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        body.dark .link a {
+            color: #9ee0c5;
+        }
+
+        #result {
+            margin-top: 16px;
+            text-align: center;
+            font-weight: bold;
+            color: #2f5d50;
+        }
+
+        body.dark #result {
+            color: #9ee0c5;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <button class="mode-btn" onclick="toggleDarkMode()">🌗 Toggle Dark Mode</button>
+
+    <h1>Login</h1>
+    <div class="subtitle">User Login Dashboard</div>
+    <div class="system-name">TCM Cultural Popular Science System</div>
+
+    <label>Username</label>
+    <input type="text" id="username" placeholder="Enter your username">
+
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Enter password">
+
+    <button onclick="login()">Login</button>
+
+    <div class="link">
+        Don't have an account? <a href="register.html">Register here</a>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark");
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark");
+        localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+    }
+
+    async function login() {
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+        const result = document.getElementById("result");
+
+        if (!username || !password) {
+            result.innerText = "Please enter username and password.";
+            return;
+        }
+
+        try {
+            const response = await fetch("/user/login", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({username, password})
+            });
+
+            const data = await response.json();
+            result.innerText = data.message;
+
+            if (data.message === "登录成功") {
+                localStorage.setItem("username", username);
+                setTimeout(() => {
+                    window.location.href = "home.html";
+                }, 800);
+            }
+        } catch (error) {
+            result.innerText = "Login failed. Please check backend.";
+        }
+    }
+</script>
+
+</body>
+</html>

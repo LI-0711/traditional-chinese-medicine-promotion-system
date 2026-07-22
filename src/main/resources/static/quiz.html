@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TCM Knowledge & Quiz</title>
+
+    <style>
+        .header{
+
+            background:#2f5d50;
+
+            color:white;
+
+            padding:18px 60px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+        }
+
+        .header-right{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:20px;
+
+        }
+
+        .header button,
+        .header select{
+
+            background:white;
+
+            color:#2f5d50;
+
+            border:none;
+
+            padding:10px 18px;
+
+            border-radius:8px;
+
+            font-weight:bold;
+
+            cursor:pointer;
+
+        }
+
+        .navbar{
+
+            background:white;
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:45px;
+
+            padding:18px;
+
+            box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+        }
+
+        .navbar a{
+
+            color:#444;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+            padding-bottom:6px;
+
+        }
+
+        .navbar a.active{
+
+            color:#2f7d68;
+
+            border-bottom:3px solid #2f7d68;
+
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f2;
+            color: #333;
+        }
+
+        .container{
+
+            width:1200px;
+
+            margin:40px auto 60px;
+
+        }
+
+        h1, h2 {
+            color: #2f5d50;
+            text-align: center;
+        }
+
+        .intro{
+
+            background:white;
+
+            padding:35px;
+
+            border-radius:18px;
+
+            box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+            margin-bottom:35px;
+
+        }
+
+        .intro h1{
+
+            margin-top:0;
+
+            color:#2f5d50;
+
+        }
+
+        .intro h2{
+
+            color:#666;
+
+            margin-bottom:20px;
+
+        }
+
+        .question-card {
+            background: #f7faf8;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .question-card h3 {
+            color: #2f5d50;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-btn {
+            background: #2f7d68;
+            color: white;
+            font-weight: bold;
+        }
+
+        .home-btn {
+            background: #e9e9e9;
+            color: #333;
+        }
+
+        .rank-banner {
+            margin: 22px 0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            background: #eef5f1;
+            color: #2f5d50;
+            font-weight: 700;
+            border-left: 5px solid #2f7d68;
+        }
+
+        .mode-switch {
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:14px;
+            margin-bottom:28px;
+            padding:8px;
+            background:#e6eee9;
+            border-radius:14px;
+        }
+
+        .mode-switch button {
+            margin:0;
+            background:transparent;
+            color:#2f5d50;
+            font-weight:700;
+        }
+
+        .mode-switch button.active {
+            background:#2f5d50;
+            color:white;
+            box-shadow:0 5px 14px rgba(47,93,80,.2);
+        }
+
+        .panel[hidden] { display:none; }
+
+        .knowledge-hero {
+            background:linear-gradient(135deg,#2f5d50,#4e806e);
+            color:white;
+            padding:38px;
+            border-radius:18px;
+            margin-bottom:28px;
+        }
+
+        .knowledge-hero h1 { color:white; text-align:left; margin:0 0 12px; }
+        .knowledge-hero p { margin:0; line-height:1.8; max-width:900px; }
+
+        .course-shelf {
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:24px;
+            align-items:stretch;
+        }
+
+        .course-book {
+            position:relative;
+            min-height:300px;
+            padding:30px 26px 24px 38px;
+            border-radius:8px 18px 18px 8px;
+            color:white;
+            box-shadow:8px 10px 22px rgba(0,0,0,.14);
+            overflow:hidden;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .course-book::before {
+            content:"";
+            position:absolute;
+            left:12px;
+            top:0;
+            bottom:0;
+            width:5px;
+            background:#ffffff4d;
+            box-shadow:4px 0 6px #0000001f;
+        }
+
+        .course-book:nth-child(1){background:linear-gradient(145deg,#356859,#244a40)}
+        .course-book:nth-child(2){background:linear-gradient(145deg,#8c6837,#60441f)}
+        .course-book:nth-child(3){background:linear-gradient(145deg,#667840,#414f25)}
+        .course-book:nth-child(4){background:linear-gradient(145deg,#5a6688,#36405f)}
+        .course-book:nth-child(5){background:linear-gradient(145deg,#9a5f4c,#6b3a2d)}
+        .course-book:nth-child(6){background:linear-gradient(145deg,#756093,#493b62)}
+        .course-icon { font-size:42px; margin-bottom:20px; }
+        .course-book h3 { color:white; font-size:24px; margin:0 0 14px; }
+        .course-book p { line-height:1.65; margin:0 0 22px; color:#f4f7f5; }
+        .course-book button { margin-top:auto; background:white; color:#2f5d50; font-weight:700; }
+
+        .course-reader {
+            margin-top:32px;
+            background:white;
+            border-radius:18px;
+            padding:34px;
+            box-shadow:0 6px 18px rgba(0,0,0,.08);
+        }
+
+        .course-reader h2 { text-align:left; margin-top:0; }
+        .chapter-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+        .chapter-card { background:#f4f8f6; border-radius:12px; padding:20px; line-height:1.7; }
+        .chapter-card h3 { color:#2f5d50; margin-top:0; }
+        .resource-links { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+        .resource-links a { background:#e6eee9; color:#2f5d50; padding:10px 14px; border-radius:9px; text-decoration:none; font-weight:700; }
+
+        @media(max-width:900px){
+            .container{width:min(94%,1200px)}
+            .course-shelf,.chapter-grid{grid-template-columns:1fr}
+            .navbar{gap:18px;flex-wrap:wrap}
+        }
+
+        #result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #e6eee9;
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: #2f5d50;
+            font-weight: bold;
+        }
+
+        .result-countdown {
+            margin-top: 22px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.72);
+            color: #2f5d50;
+            font-size: 17px;
+        }
+
+        .header{
+            background:#2f5d50;
+            color:white;
+            padding:18px 60px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .header-left{
+            display:flex;
+            align-items:center;
+        }
+
+        #welcomeUser{
+            font-size:24px;
+            font-weight:700;
+            color:white;
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/guofeng-background.css?v=20260717-1">
+</head>
+
+<body>
+<div class="header">
+
+    <div class="header-left">
+
+        <span id="welcomeUser"></span>
+
+    </div>
+
+    <div class="header-right">
+
+        <select id="languageSelect" onchange="changeLanguage()">
+
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+            <option value="ms">Bahasa Melayu</option>
+
+        </select>
+
+        <button id="logoutBtn" onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+<div class="navbar">
+
+    <a href="home.html" id="navHome">Home</a>
+
+    <a href="herb.html" id="navHerb">Herb Information</a>
+
+    <a href="quiz.html" id="navQuiz" class="active">
+        Knowledge & Quiz
+    </a>
+
+    <a href="history.html" id="navHistory">
+        History
+    </a>
+
+    <a href="personal_center.html" id="navPersonal">
+        Personal Center
+    </a>
+
+</div>
+
+<div class="container">
+
+    <div class="mode-switch" role="tablist">
+        <button id="knowledgeTab" class="active" type="button" onclick="showMode('knowledge')">Knowledge Learning</button>
+        <button id="quizTab" type="button" onclick="showMode('quiz')">Quiz Challenge</button>
+    </div>
+
+    <section id="knowledgePanel" class="panel">
+        <div class="knowledge-hero">
+            <h1 id="knowledgeHeading">TCM Learning Library</h1>
+            <p id="knowledgeIntro"></p>
+        </div>
+        <div id="courseShelf" class="course-shelf"></div>
+        <div id="courseReader" class="course-reader" hidden></div>
+    </section>
+
+    <section id="quizPanel" class="panel" hidden>
+
+    <div class="intro">
+
+        <h1 id="pageTitle">
+            TCM Knowledge & Quiz
+        </h1>
+
+        <h2 id="introTitle">
+            Learning Content
+        </h2>
+
+        <p id="introText">
+            Traditional Chinese Medicine (TCM) emphasizes balance...
+        </p>
+
+    </div>
+
+    <div id="rankBanner" class="rank-banner"></div>
+
+    <form id="quizForm"></form>
+
+    <button
+            id="submitBtn"
+            class="submit-btn"
+            onclick="submitQuiz()">Submit Quiz</button>
+    <button
+            id="homeBtn"
+            class="home-btn"
+            onclick="goKnowledgeLearning()">Back to Knowledge Learning</button>
+
+    <div id="result"></div>
+    </section>
+</div>
+
+<script>
+    const username = localStorage.getItem("username");
+
+    if (!username) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+    }
+
+    let currentLanguage = localStorage.getItem("language") || "en";
+    let currentRank = "BRONZE";
+    let learningProgress = {rank:"BRONZE", totalCorrect:0, nextThreshold:20, correctNeeded:20};
+    let activeMode = localStorage.getItem("knowledgeQuizMode") || "knowledge";
+    let selectedCourseId = new URLSearchParams(window.location.search).get("course");
+    if (selectedCourseId) activeMode = "knowledge";
+
+    const translations = {
+
+        en:{
+
+            welcome:"👤 Welcome, " + username,
+            logout:"Logout",
+            navHome:"Home", navHerb:"Herb Information", navQuiz:"Knowledge & Quiz",
+            navHistory:"History", navPersonal:"Personal Center",
+            knowledgeTab:"Knowledge Learning", quizTab:"Quiz Challenge",
+            knowledgeHeading:"TCM Learning Library",
+            knowledgeIntro:"Choose a course like selecting a book. Read concise chapters here, then continue with trusted external resources.",
+            readCourse:"Open Book", chaptersLabel:"Course Chapters", furtherReading:"Trusted Further Reading",
+
+            pageTitle:"TCM Knowledge & Quiz",
+
+            introTitle:"Quiz Challenge",
+
+            introText:"Traditional Chinese Medicine (TCM) emphasizes balance, prevention, holistic healthcare, Yin-Yang theory, Qi, herbal knowledge and daily health maintenance. Each quiz randomly selects 10 questions from the question bank to help users assess their learning outcomes.",
+
+            submit:"Submit Quiz",
+
+            home:"Back to Knowledge Learning",
+
+            resultTitle:"Quiz Completed!",
+            score: "Your Score",
+            accuracy: "Accuracy",
+            excellent: "Excellent!",
+            good: "Good Job!",
+            keepLearning: "Keep Learning!",
+            answerAlert:"Please answer all questions before submitting.",
+            rankLabel:"Learning Rank", difficultyLabel:"Quiz Difficulty", totalCorrectLabel:"Total Correct",
+            rankNames:{BRONZE:"Bronze", SILVER:"Silver", GOLD:"Gold"},
+            difficultyNames:{BRONZE:"Basic", SILVER:"Intermediate", GOLD:"Advanced"},
+            nextRank:"{count} more correct answers to reach {rank}.", maxRank:"Highest rank reached!",
+            rankUp:"Congratulations! Your learning rank is now {rank}."
+
+        },
+
+        zh:{
+
+            welcome:"👤 欢迎，" + username,
+            logout:"退出登录",
+            navHome:"首页", navHerb:"草药信息", navQuiz:"知识与测验",
+            navHistory:"历史记录", navPersonal:"个人中心",
+            knowledgeTab:"知识学习", quizTab:"知识测验",
+            knowledgeHeading:"中医药学习书架",
+            knowledgeIntro:"像选书一样选择想学的课程，先阅读站内精要章节，再进入权威网站继续学习。",
+            readCourse:"打开课程", chaptersLabel:"课程章节", furtherReading:"权威延伸阅读",
+
+            pageTitle:"中医药知识与测验",
+
+            introTitle:"知识测验",
+
+            introText:"本模块介绍中医药文化基础知识，包括阴阳、五行、气、中药以及养生理念。系统将随机抽取10道题目帮助用户检测学习成果。",
+
+            submit:"提交测验",
+
+            home:"返回知识学习",
+
+            resultTitle:"测验完成！",
+
+            answerAlert:"请完成所有题目后再提交。",
+            score: "你的成绩",
+            accuracy: "正确率",
+            excellent: "优秀！",
+            good: "不错！",
+            keepLearning: "继续努力！",
+            rankLabel:"学习段位", difficultyLabel:"测验难度", totalCorrectLabel:"累计答对",
+            rankNames:{BRONZE:"青铜", SILVER:"白银", GOLD:"黄金"},
+            difficultyNames:{BRONZE:"基础", SILVER:"中级", GOLD:"进阶"},
+            nextRank:"再答对 {count} 题即可升级为{rank}。", maxRank:"已达到最高段位！",
+            rankUp:"恭喜！你的学习段位已升级为{rank}。"
+
+        },
+
+        ms:{
+
+            welcome:"👤 Selamat Datang, " + username,
+            logout:"Log Keluar",
+            navHome:"Laman Utama", navHerb:"Maklumat Herba", navQuiz:"Pengetahuan & Kuiz",
+            navHistory:"Sejarah", navPersonal:"Pusat Peribadi",
+            knowledgeTab:"Pembelajaran", quizTab:"Cabaran Kuiz",
+            knowledgeHeading:"Perpustakaan Pembelajaran TCM",
+            knowledgeIntro:"Pilih kursus seperti memilih buku. Baca bab ringkas di sini, kemudian teruskan dengan sumber luar yang dipercayai.",
+            readCourse:"Buka Buku", chaptersLabel:"Bab Kursus", furtherReading:"Bacaan Lanjut Dipercayai",
+
+            pageTitle:"Pengetahuan & Kuiz TCM",
+
+            introTitle:"Cabaran Kuiz",
+
+            introText:"Modul ini memperkenalkan pengetahuan asas budaya Perubatan Tradisional Cina termasuk Yin-Yang, Lima Unsur, Qi, herba dan penjagaan kesihatan. Sistem akan memilih 10 soalan secara rawak.",
+
+            submit:"Hantar Kuiz",
+
+            home:"Kembali ke Pembelajaran",
+
+            resultTitle:"Kuiz Selesai!",
+
+            answerAlert:"Sila jawab semua soalan dahulu.",
+            score: "Markah Anda",
+            accuracy: "Ketepatan",
+            excellent: "Cemerlang!",
+            good: "Syabas!",
+            keepLearning: "Teruskan Belajar!",
+            rankLabel:"Kedudukan Pembelajaran", difficultyLabel:"Kesukaran Kuiz", totalCorrectLabel:"Jumlah Betul",
+            rankNames:{BRONZE:"Gangsa", SILVER:"Perak", GOLD:"Emas"},
+            difficultyNames:{BRONZE:"Asas", SILVER:"Pertengahan", GOLD:"Lanjutan"},
+            nextRank:"{count} lagi jawapan betul untuk mencapai {rank}.", maxRank:"Kedudukan tertinggi dicapai!",
+            rankUp:"Tahniah! Kedudukan pembelajaran anda kini {rank}."
+
+        }
+
+    };
+
+    const learningCourses = [
+        {
+            id:"basics", icon:"📜",
+            title:{en:"Foundations of Traditional Chinese Medicine",zh:"中医基础概念",ms:"Asas Perubatan Tradisional Cina"},
+            summary:{en:"Build a cultural overview of holistic thinking, Qi, blood, body fluids and the four diagnostic methods.",zh:"从整体观、气血津液和四诊等概念建立中医文化基础框架。",ms:"Bina gambaran budaya tentang pemikiran menyeluruh, Qi, darah, cecair badan dan empat kaedah diagnosis."},
+            chapters:[
+                {title:{en:"Holistic View",zh:"整体观念",ms:"Pandangan Menyeluruh"},text:{en:"TCM culture views the body, lifestyle and environment as interconnected. Learning begins by observing relationships rather than isolated details.",zh:"中医文化强调人体、生活方式与环境之间的联系，学习时重视整体关系，而不是孤立看待单一现象。",ms:"Budaya TCM melihat tubuh, gaya hidup dan persekitaran sebagai saling berkaitan, bukan sebagai perkara yang terasing."}},
+                {title:{en:"Qi, Blood and Fluids",zh:"气血津液",ms:"Qi, Darah dan Cecair"},text:{en:"These are traditional conceptual categories used to describe nourishment, movement and functional balance in the body.",zh:"气、血、津液是传统理论中描述人体滋养、运行与功能平衡的重要概念范畴。",ms:"Ini ialah kategori konsep tradisional untuk menerangkan khasiat, pergerakan dan keseimbangan fungsi tubuh."}},
+                {title:{en:"The Four Examinations",zh:"望闻问切",ms:"Empat Pemeriksaan"},text:{en:"Looking, listening and smelling, asking, and pulse-taking form a traditional framework for collecting information.",zh:"望、闻、问、切构成传统的信息收集框架，应作为文化知识理解，而非自行诊断工具。",ms:"Pemerhatian, pendengaran dan bau, pertanyaan serta pemeriksaan nadi membentuk rangka kerja pengumpulan maklumat tradisional."}}
+            ],
+            resources:[
+                {label:{en:"WHO: Traditional Medicine",zh:"世界卫生组织：传统医学",ms:"WHO: Perubatan Tradisional"},url:{en:"https://www.who.int/westernpacific/q-a/item/traditional-medicine",zh:"https://www.who.int/zh/news-room/questions-and-answers/item/traditional-medicine",ms:"https://www.who.int/westernpacific/q-a/item/traditional-medicine"}},
+                {label:{en:"UNESCO: TCM Cultural Heritage",zh:"联合国教科文组织：中医文化遗产",ms:"UNESCO: Warisan Budaya TCM"},url:{en:"https://ich.unesco.org/en/RL/acupuncture-and-moxibustion-of-traditional-chinese-medicine-00425",zh:"https://ich.unesco.org/en/RL/acupuncture-and-moxibustion-of-traditional-chinese-medicine-00425",ms:"https://ich.unesco.org/en/RL/acupuncture-and-moxibustion-of-traditional-chinese-medicine-00425"}}
+            ]
+        },
+        {
+            id:"theories", icon:"☯️",
+            title:{en:"Yin–Yang and the Five Elements",zh:"阴阳理论与五行学说",ms:"Teori Yin–Yang dan Lima Unsur"},
+            summary:{en:"Learn two traditional frameworks used to discuss change, balance and relationships in nature and the body.",zh:"学习传统文化中用于理解变化、平衡以及自然与人体关系的两套理论框架。",ms:"Pelajari dua rangka kerja tradisional untuk membincangkan perubahan, keseimbangan dan hubungan alam dengan tubuh."},
+            chapters:[
+                {title:{en:"Yin and Yang",zh:"阴与阳",ms:"Yin dan Yang"},text:{en:"Yin and Yang describe complementary and changing qualities. Neither is understood alone; emphasis is placed on relationship and dynamic balance.",zh:"阴阳描述相互依存、不断变化的两类属性，重点在于双方的关系与动态平衡。",ms:"Yin dan Yang menerangkan sifat yang saling melengkapi dan berubah, dengan tumpuan pada hubungan serta keseimbangan dinamik."}},
+                {title:{en:"Five Elements",zh:"五行学说",ms:"Lima Unsur"},text:{en:"Wood, Fire, Earth, Metal and Water are symbolic categories used to organize patterns, seasons and relationships.",zh:"木、火、土、金、水是用于归纳事物属性、季节变化和相互关系的象征性分类。",ms:"Kayu, Api, Tanah, Logam dan Air ialah kategori simbolik untuk menyusun corak, musim dan hubungan."}},
+                {title:{en:"Generation and Control",zh:"相生与相克",ms:"Penjanaan dan Kawalan"},text:{en:"The generating and controlling cycles illustrate how the five categories can support or regulate one another within a system.",zh:"相生与相克用于说明五种属性在系统中如何彼此促进、制约并维持秩序。",ms:"Kitaran penjanaan dan kawalan menggambarkan bagaimana lima kategori saling menyokong atau mengawal dalam sesuatu sistem."}}
+            ],
+            resources:[
+                {label:{en:"CMRO: Food, Yin–Yang and Five Flavours",zh:"香港中医药规管办公室：饮食、阴阳与五味",ms:"CMRO: Makanan, Yin–Yang dan Lima Rasa"},url:{en:"https://www.cmro.gov.hk/html/eng/useful_information/public_health/publication/Health_Preservation_by_Food_in_CM.html",zh:"https://www.cmro.gov.hk/html/eng/useful_information/public_health/publication/Health_Preservation_by_Food_in_CM.html",ms:"https://www.cmro.gov.hk/html/eng/useful_information/public_health/publication/Health_Preservation_by_Food_in_CM.html"}}
+            ]
+        },
+        {
+            id:"herbs", icon:"🌿",
+            title:{en:"Common Chinese Herbs and Their Functions",zh:"常见中药材及其功效",ms:"Herba Cina Biasa dan Fungsinya"},
+            summary:{en:"Recognize common herb categories, traditional presentations and essential safety principles.",zh:"认识常见药材分类、传统功效表述与必要的安全使用原则。",ms:"Kenali kategori herba biasa, penerangan fungsi tradisional dan prinsip keselamatan penting."},
+            chapters:[
+                {title:{en:"Herb Categories",zh:"药材分类",ms:"Kategori Herba"},text:{en:"Herbs may be grouped in traditional learning by functions such as supporting Qi, nourishing, warming, cooling or harmonizing.",zh:"传统学习中可按补气、滋养、温里、清热、调和等功效方向认识药材。",ms:"Dalam pembelajaran tradisional, herba boleh dihimpunkan mengikut fungsi seperti menyokong Qi, menyubur, memanas, menyejuk atau mengharmoni."}},
+                {title:{en:"Common Examples",zh:"常见药材",ms:"Contoh Biasa"},text:{en:"Ginseng, astragalus, goji berry, ginger and licorice are familiar examples, but their traditional uses and precautions differ.",zh:"人参、黄芪、枸杞、生姜、甘草等较为常见，但传统用途和注意事项各不相同。",ms:"Ginseng, astragalus, goji, halia dan likuoris ialah contoh biasa, tetapi kegunaan serta langkah berjaga-jaganya berbeza."}},
+                {title:{en:"Safety First",zh:"安全原则",ms:"Utamakan Keselamatan"},text:{en:"Educational descriptions do not replace diagnosis. Product quality, dosage, individual conditions and medicine interactions require professional guidance.",zh:"科普介绍不能替代诊断；药材质量、剂量、个人情况及药物相互作用需要专业人员指导。",ms:"Penerangan pendidikan tidak menggantikan diagnosis; kualiti, dos, keadaan individu dan interaksi ubat memerlukan panduan profesional."}}
+            ],
+            resources:[
+                {label:{en:"Browse This Site’s Herb Library",zh:"浏览本站草药资料库",ms:"Lihat Pustaka Herba Laman Ini"},url:{en:"herb.html",zh:"herb.html",ms:"herb.html"}},
+                {label:{en:"Hong Kong CHP: Safe Use Reminder",zh:"香港卫生防护中心：安全用药提醒",ms:"CHP Hong Kong: Peringatan Penggunaan Selamat"},url:{en:"https://www.chp.gov.hk/en/features/12012.html",zh:"https://www.chp.gov.hk/en/features/12012.html",ms:"https://www.chp.gov.hk/en/features/12012.html"}}
+            ]
+        },
+        {
+            id:"diagnostics", icon:"🩺",
+            title:{en:"Traditional Diagnosis and Meridian Theory",zh:"中医诊法与经络理论",ms:"Diagnosis Tradisional dan Teori Meridian"},
+            summary:{en:"Explore the four examinations, pattern differentiation and the cultural concept of meridian pathways.",zh:"了解望闻问切、辨证思维与经络通道的传统文化概念。",ms:"Terokai empat pemeriksaan, pembezaan corak dan konsep budaya laluan meridian."},
+            chapters:[
+                {title:{en:"Four Examinations",zh:"四诊方法",ms:"Empat Pemeriksaan"},text:{en:"Looking, listening and smelling, asking, and pulse-taking form a traditional information-gathering framework.",zh:"望、闻、问、切构成传统的信息收集框架，用于系统观察不同表现。",ms:"Pemerhatian, pendengaran dan bau, pertanyaan serta pemeriksaan nadi membentuk rangka kerja maklumat tradisional."}},
+                {title:{en:"Pattern Differentiation",zh:"辨证思维",ms:"Pembezaan Corak"},text:{en:"Traditional learning organizes multiple signs into patterns instead of interpreting a single sign in isolation.",zh:"传统辨证重视综合多个表现形成模式，而不是孤立理解单一现象。",ms:"Pembelajaran tradisional menyusun pelbagai tanda kepada corak dan bukan menilai satu tanda secara terasing."}},
+                {title:{en:"Meridian Culture",zh:"经络文化",ms:"Budaya Meridian"},text:{en:"Meridians are traditional conceptual pathways associated with connections and circulation in the body.",zh:"经络是传统理论中描述人体联系与运行关系的概念性通道。",ms:"Meridian ialah laluan konsep tradisional yang dikaitkan dengan hubungan dan peredaran dalam tubuh."}}
+            ],
+            resources:[
+                {label:{en:"UNESCO: Acupuncture and Moxibustion",zh:"联合国教科文组织：针灸与艾灸",ms:"UNESCO: Akupunktur dan Moksibusi"},url:{en:"https://ich.unesco.org/en/RL/acupuncture-and-moxibustion-of-traditional-chinese-medicine-00425",zh:"https://ich.unesco.org/en/RL/acupuncture-and-moxibustion-of-traditional-chinese-medicine-00425",ms:"https://ich.unesco.org/en/RL/acupuncture-and-moxibustion-of-traditional-chinese-medicine-00425"}}
+            ]
+        },
+        {
+            id:"wellness", icon:"🍵",
+            title:{en:"TCM Wellness and Food Therapy",zh:"中医养生与食疗",ms:"Penjagaan Kesihatan dan Terapi Makanan TCM"},
+            summary:{en:"Learn traditional ideas about seasonal living, balanced routines, food properties and safe health education.",zh:"学习顺应季节、规律生活、食物属性与安全养生教育等传统理念。",ms:"Pelajari idea tradisional tentang musim, rutin seimbang, sifat makanan dan pendidikan kesihatan selamat."},
+            chapters:[
+                {title:{en:"Balanced Routine",zh:"起居有常",ms:"Rutin Seimbang"},text:{en:"Traditional wellness culture values regular sleep, suitable movement and moderation rather than extreme routines.",zh:"传统养生文化重视规律作息、适度活动与节制，避免走向极端。",ms:"Budaya kesihatan tradisional menghargai tidur teratur, pergerakan sesuai dan kesederhanaan."}},
+                {title:{en:"Seasonal Awareness",zh:"顺应四时",ms:"Kesedaran Musim"},text:{en:"Seasonal change is used as a cultural framework for considering clothing, activity, rest and diet.",zh:"传统文化常以季节变化为框架，思考衣着、活动、休息与饮食安排。",ms:"Perubahan musim digunakan sebagai rangka budaya untuk mempertimbangkan pakaian, aktiviti, rehat dan diet."}},
+                {title:{en:"Food Therapy",zh:"饮食调养",ms:"Terapi Makanan"},text:{en:"Food therapy discusses food nature and flavour, but educational information does not replace individual dietary advice.",zh:"食疗关注食物的性质与味道，但科普信息不能替代针对个人情况的饮食建议。",ms:"Terapi makanan membincangkan sifat dan rasa makanan, tetapi maklumat pendidikan tidak menggantikan nasihat individu."}}
+            ],
+            resources:[
+                {label:{en:"CMRO: Health Preservation by Food",zh:"香港中医药规管办公室：中医食疗养生",ms:"CMRO: Penjagaan Kesihatan melalui Makanan"},url:{en:"https://www.cmro.gov.hk/html/eng/useful_information/public_health/publication/Health_Preservation_by_Food_in_CM.html",zh:"https://www.cmro.gov.hk/html/eng/useful_information/public_health/publication/Health_Preservation_by_Food_in_CM.html",ms:"https://www.cmro.gov.hk/html/eng/useful_information/public_health/publication/Health_Preservation_by_Food_in_CM.html"}}
+            ]
+        },
+        {
+            id:"acupuncture", icon:"🎋",
+            title:{en:"Acupuncture and Moxibustion Culture",zh:"针灸与艾灸文化",ms:"Budaya Akupunktur dan Moksibusi"},
+            summary:{en:"Understand the history, tools, transmission and safety boundaries of acupuncture and moxibustion culture.",zh:"了解针灸与艾灸的历史、工具、传承方式和安全边界。",ms:"Fahami sejarah, alat, pewarisan dan batas keselamatan budaya akupunktur serta moksibusi."},
+            chapters:[
+                {title:{en:"Cultural History",zh:"历史传承",ms:"Sejarah Budaya"},text:{en:"Acupuncture and moxibustion developed through long-standing teaching and practice and are recognized as cultural heritage.",zh:"针灸与艾灸通过长期教学与实践传承，并作为文化遗产受到关注。",ms:"Akupunktur dan moksibusi berkembang melalui pengajaran serta amalan lama dan diiktiraf sebagai warisan budaya."}},
+                {title:{en:"Points and Stimulation",zh:"腧穴与刺激",ms:"Titik dan Rangsangan"},text:{en:"Traditional theory describes stimulation of selected points with needles or warmed moxa as distinct professional practices.",zh:"传统理论描述以针具或温热艾材刺激特定腧穴，这些属于专业操作。",ms:"Teori tradisional menerangkan rangsangan titik terpilih dengan jarum atau moxa hangat sebagai amalan profesional."}},
+                {title:{en:"Professional Safety",zh:"专业与安全",ms:"Keselamatan Profesional"},text:{en:"Needling and moxibustion should be performed by qualified practitioners; this course is cultural education only.",zh:"针刺与艾灸应由合格专业人员操作，本课程仅用于文化科普。",ms:"Akupunktur dan moksibusi hendaklah dilakukan oleh pengamal berkelayakan; kursus ini untuk pendidikan budaya sahaja."}}
+            ],
+            resources:[
+                {label:{en:"UNESCO Cultural Heritage Introduction",zh:"联合国教科文组织文化遗产介绍",ms:"Pengenalan Warisan Budaya UNESCO"},url:{en:"https://ich.unesco.org/en/RL/acupuncture-and-moxibustion-of-traditional-chinese-medicine-00425",zh:"https://ich.unesco.org/en/RL/acupuncture-and-moxibustion-of-traditional-chinese-medicine-00425",ms:"https://ich.unesco.org/en/RL/acupuncture-and-moxibustion-of-traditional-chinese-medicine-00425"}}
+            ]
+        }
+    ];
+
+    const questionBank = [
+        {
+            question: {
+                en: "What is the main focus of Traditional Chinese Medicine (TCM)?",
+                zh: "中医药的核心理念是什么？",
+                ms: "Apakah fokus utama Perubatan Tradisional Cina (TCM)?"
+            },
+            options: {
+                en: ["Holistic balance and prevention", "Only surgery", "Only emergency treatment"],
+                zh: ["整体平衡与预防", "仅依靠手术", "仅用于急救治疗"],
+                ms: ["Keseimbangan menyeluruh dan pencegahan", "Pembedahan sahaja", "Rawatan kecemasan sahaja"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which theory is commonly used in TCM to explain balance in the body?",
+                zh: "中医通常使用哪一种理论来解释人体平衡？",
+                ms: "Teori manakah yang biasa digunakan dalam TCM untuk menerangkan keseimbangan badan?"
+            },
+            options: {
+                en: ["Yin-Yang theory", "Binary theory", "Atomic theory"],
+                zh: ["阴阳理论", "二元理论", "原子理论"],
+                ms: ["Teori Yin-Yang", "Teori Binari", "Teori Atom"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "What does Qi generally refer to in TCM culture?",
+                zh: "在中医文化中，“气”通常指什么？",
+                ms: "Apakah yang dimaksudkan dengan Qi dalam budaya TCM?"
+            },
+            options: {
+                en: ["Vital energy", "Computer memory", "Chemical acid"],
+                zh: ["生命能量", "电脑内存", "化学酸"],
+                ms: ["Tenaga kehidupan", "Memori komputer", "Asid kimia"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which of the following is one of the Five Elements in TCM?",
+                zh: "以下哪一个属于中医五行？",
+                ms: "Yang manakah merupakan salah satu daripada Lima Unsur dalam TCM?"
+            },
+            options: {
+                en: ["Wood", "Plastic", "Glass"],
+                zh: ["木", "塑料", "玻璃"],
+                ms: ["Kayu", "Plastik", "Kaca"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which set correctly lists the Five Elements in TCM?",
+                zh: "以下哪一组正确列出了中医五行？",
+                ms: "Set manakah yang menyenaraikan Lima Unsur TCM dengan betul?"
+            },
+            options: {
+                en: ["Wood, Fire, Earth, Metal, Water", "Gold, Silver, Copper, Iron, Stone", "Sun, Moon, Star, Cloud, Wind"],
+                zh: ["木、火、土、金、水", "金、银、铜、铁、石", "太阳、月亮、星星、云、风"],
+                ms: ["Kayu, Api, Tanah, Logam, Air", "Emas, Perak, Tembaga, Besi, Batu", "Matahari, Bulan, Bintang, Awan, Angin"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "In TCM, herbs are often used to:",
+                zh: "在中医中，中药通常用于：",
+                ms: "Dalam TCM, herba biasanya digunakan untuk:"
+            },
+            options: {
+                en: ["Support body balance and health", "Replace all professional treatment", "Guarantee instant cure"],
+                zh: ["维持身体平衡与健康", "完全取代专业治疗", "保证立即治愈"],
+                ms: ["Menyokong keseimbangan dan kesihatan badan", "Menggantikan semua rawatan profesional", "Menjamin penyembuhan segera"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which herb is commonly associated with Qi support in TCM culture?",
+                zh: "哪一种中药通常与补气相关？",
+                ms: "Herba manakah yang sering dikaitkan dengan penguatan Qi dalam TCM?"
+            },
+            options: {
+                en: ["Ginseng", "Coffee bean", "Tomato leaf"],
+                zh: ["人参", "咖啡豆", "番茄叶"],
+                ms: ["Ginseng", "Biji kopi", "Daun tomato"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Goji berries are commonly associated with:",
+                zh: "枸杞通常与什么相关？",
+                ms: "Buah Goji biasanya dikaitkan dengan:"
+            },
+            options: {
+                en: ["Health maintenance and nourishment", "Computer repair", "Metal production"],
+                zh: ["养生与滋补", "电脑维修", "金属制造"],
+                ms: ["Penjagaan kesihatan dan pemakanan", "Pembaikan komputer", "Pengeluaran logam"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "What is the purpose of TCM health preservation?",
+                zh: "中医养生的主要目的是什么？",
+                ms: "Apakah tujuan utama penjagaan kesihatan dalam TCM?"
+            },
+            options: {
+                en: ["Maintaining balance and preventing illness", "Ignoring daily habits", "Avoiding all food"],
+                zh: ["保持平衡、预防疾病", "忽视生活习惯", "拒绝所有食物"],
+                ms: ["Mengekalkan keseimbangan dan mencegah penyakit", "Mengabaikan tabiat harian", "Mengelakkan semua makanan"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which daily habit is commonly encouraged in TCM health culture?",
+                zh: "中医养生提倡以下哪一种生活习惯？",
+                ms: "Amalan harian manakah yang digalakkan dalam budaya penjagaan kesihatan TCM?"
+            },
+            options: {
+                en: ["Balanced diet and regular rest", "Staying up every night", "Skipping all meals"],
+                zh: ["均衡饮食与规律作息", "每天熬夜", "完全不吃饭"],
+                ms: ["Pemakanan seimbang dan rehat yang teratur", "Berjaga setiap malam", "Tidak makan langsung"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "In TCM culture, food therapy means:",
+                zh: "中医文化中的食疗指什么？",
+                ms: "Apakah maksud terapi pemakanan dalam budaya TCM?"
+            },
+            options: {
+                en: ["Using diet to support health", "Eating randomly", "Only eating spicy food"],
+                zh: ["通过饮食促进健康", "随意饮食", "只吃辛辣食物"],
+                ms: ["Menggunakan pemakanan untuk menyokong kesihatan", "Makan secara rawak", "Hanya makan makanan pedas"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which TCM concept describes a person's relatively stable bodily characteristics?",
+                zh: "中医用哪个概念描述人体相对稳定的个体特征？",
+                ms: "Konsep TCM manakah menerangkan ciri tubuh seseorang yang relatif stabil?"
+            },
+            options: {
+                en: ["Body constitution", "Five tones", "Four seasons"],
+                zh: ["体质", "五音", "四季"],
+                ms: ["Perlembagaan tubuh", "Lima nada", "Empat musim"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "What does TCM usually emphasize when understanding the body?",
+                zh: "中医如何理解人体？",
+                ms: "Bagaimanakah TCM memahami tubuh manusia?"
+            },
+            options: {
+                en: ["The body as an interconnected whole", "Only one isolated organ", "Only external appearance"],
+                zh: ["人体是一个整体", "只关注单一器官", "只关注外表"],
+                ms: ["Tubuh sebagai satu keseluruhan yang saling berkaitan", "Hanya satu organ", "Hanya penampilan luaran"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which method is traditionally associated with TCM practice?",
+                zh: "以下哪一种方法属于传统中医治疗方式？",
+                ms: "Kaedah manakah yang berkaitan dengan amalan TCM?"
+            },
+            options: {
+                en: ["Acupuncture", "Keyboard programming", "Vehicle painting"],
+                zh: ["针灸", "电脑编程", "汽车喷漆"],
+                ms: ["Akupunktur", "Pengaturcaraan komputer", "Mengecat kenderaan"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "What is acupuncture commonly used for in TCM culture?",
+                zh: "针灸在中医文化中通常用于什么？",
+                ms: "Untuk apakah akupunktur biasanya digunakan dalam budaya TCM?"
+            },
+            options: {
+                en: ["Stimulating specific body points", "Writing software", "Printing documents"],
+                zh: ["刺激人体特定穴位", "编写软件", "打印文件"],
+                ms: ["Merangsang titik tertentu pada badan", "Menulis perisian", "Mencetak dokumen"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "What is moxibustion related to?",
+                zh: "艾灸主要与什么有关？",
+                ms: "Apakah yang berkaitan dengan moksibusi?"
+            },
+            options: {
+                en: ["Applying heat to specific points", "Cooling metal", "Cleaning screens"],
+                zh: ["对特定穴位进行温热刺激", "冷却金属", "清洁屏幕"],
+                ms: ["Memberikan haba pada titik tertentu", "Menyejukkan logam", "Membersihkan skrin"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which concept is linked to meridians in TCM?",
+                zh: "经络与以下哪项概念有关？",
+                ms: "Konsep manakah berkaitan dengan meridian dalam TCM?"
+            },
+            options: {
+                en: ["Pathways of Qi and blood", "Internet cables", "Road traffic laws"],
+                zh: ["气血运行通道", "网络电缆", "交通法规"],
+                ms: ["Laluan Qi dan darah", "Kabel internet", "Undang-undang jalan raya"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "In TCM, health is often described as:",
+                zh: "在中医中，健康通常被描述为：",
+                ms: "Dalam TCM, kesihatan biasanya digambarkan sebagai:"
+            },
+            options: {
+                en: ["A state of balance", "A random event", "Only absence of work"],
+                zh: ["一种平衡状态", "随机事件", "不用工作"],
+                ms: ["Keadaan yang seimbang", "Peristiwa rawak", "Tidak bekerja"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which Zang-Fu pair has a traditional interior-exterior relationship?",
+                zh: "以下哪一组脏腑在中医理论中具有表里关系？",
+                ms: "Pasangan Zang-Fu manakah mempunyai hubungan dalaman-luaran dalam teori TCM?"
+            },
+            options: {
+                en: ["Heart and small intestine", "Lung and liver", "Spleen and kidney"],
+                zh: ["心与小肠", "肺与肝", "脾与肾"],
+                ms: ["Jantung dan usus kecil", "Paru-paru dan hati", "Limpa dan buah pinggang"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "What does the TCM principle 'treat disease before it arises' mainly emphasize?",
+                zh: "中医“治未病”的原则主要强调什么？",
+                ms: "Apakah yang terutama ditekankan oleh prinsip TCM 'merawat sebelum penyakit timbul'?"
+            },
+            options: {
+                en: ["Ignoring early changes", "Prevention and early regulation", "Waiting until illness becomes severe"],
+                zh: ["忽视早期变化", "预防并及早调理", "等到病情严重再处理"],
+                ms: ["Mengabaikan perubahan awal", "Pencegahan dan pengawalan awal", "Menunggu sehingga penyakit menjadi serius"]
+            },
+            answer: 1
+        },
+        {
+            question: {
+                en: "Which item is NOT one of the Four Natures of Chinese medicinal herbs?",
+                zh: "以下哪项不属于中药的“四气”？",
+                ms: "Yang manakah BUKAN salah satu daripada Empat Sifat herba perubatan Cina?"
+            },
+            options: {
+                en: ["Sour", "Cold", "Warm"],
+                zh: ["酸", "寒", "温"],
+                ms: ["Masam", "Sejuk", "Hangat"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Why are precautions important in herbal knowledge?",
+                zh: "为什么中药知识需要强调注意事项？",
+                ms: "Mengapakah langkah berjaga-jaga penting dalam pengetahuan herba?"
+            },
+            options: {
+                en: ["Because herbs may not suit everyone", "Because precautions are useless", "Because all herbs are always safe"],
+                zh: ["因为并非所有人都适合使用", "因为注意事项没有意义", "因为所有中药都绝对安全"],
+                ms: ["Kerana herba mungkin tidak sesuai untuk semua orang", "Kerana langkah berjaga-jaga tidak berguna", "Kerana semua herba sentiasa selamat"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which Zang organ is traditionally associated with governing transformation and transportation?",
+                zh: "中医理论中，哪个脏主运化？",
+                ms: "Organ Zang manakah secara tradisional dikaitkan dengan fungsi transformasi dan pengangkutan?"
+            },
+            options: {
+                en: ["Lung", "Spleen", "Kidney"],
+                zh: ["肺", "脾", "肾"],
+                ms: ["Paru-paru", "Limpa", "Buah pinggang"]
+            },
+            answer: 1
+        },
+        {
+            question: {
+                en: "In the Four Examinations, pulse-taking belongs to which method?",
+                zh: "在中医四诊中，诊脉属于哪一种诊法？",
+                ms: "Dalam Empat Kaedah Pemeriksaan, pemeriksaan nadi tergolong dalam kaedah yang mana?"
+            },
+            options: {
+                en: ["Listening and smelling", "Asking", "Palpation"],
+                zh: ["闻诊", "问诊", "切诊"],
+                ms: ["Mendengar dan menghidu", "Menyoal", "Palpasi"]
+            },
+            answer: 2
+        },
+        {
+            question: {
+                en: "In the Four Examinations, observing the tongue belongs to which method?",
+                zh: "在中医四诊中，观察舌象属于哪一种诊法？",
+                ms: "Dalam Empat Kaedah Pemeriksaan, pemerhatian lidah tergolong dalam kaedah yang mana?"
+            },
+            options: {
+                en: ["Asking", "Inspection", "Palpation"],
+                zh: ["问诊", "望诊", "切诊"],
+                ms: ["Menyoal", "Pemerhatian", "Palpasi"]
+            },
+            answer: 1
+        },
+        {
+            question: {
+                en: "Which Chinese herb is traditionally known for nourishing blood?",
+                zh: "以下哪味中药传统上以补血功效著称？",
+                ms: "Herba Cina manakah secara tradisional terkenal untuk menyuburkan darah?"
+            },
+            options: {
+                en: ["Angelica sinensis (Dang Gui)", "Peppermint", "Hawthorn"],
+                zh: ["当归", "薄荷", "山楂"],
+                ms: ["Angelica sinensis (Dang Gui)", "Pudina", "Hawthorn"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "In Five-Element theory, which element corresponds to spring?",
+                zh: "在五行学说中，春季对应哪一行？",
+                ms: "Dalam teori Lima Unsur, unsur manakah sepadan dengan musim bunga?"
+            },
+            options: {
+                en: ["Metal", "Water", "Wood"],
+                zh: ["金", "水", "木"],
+                ms: ["Logam", "Air", "Kayu"]
+            },
+            answer: 2
+        },
+        {
+            question: {
+                en: "Which topic is suitable for beginner TCM learning?",
+                zh: "以下哪个主题适合中医初学者学习？",
+                ms: "Topik manakah sesuai untuk pemula dalam pembelajaran TCM?"
+            },
+            options: {
+                en: ["Yin-Yang and Five Elements", "Machine assembly only", "Vehicle engine theory"],
+                zh: ["阴阳与五行", "机械装配", "汽车发动机理论"],
+                ms: ["Yin-Yang dan Lima Unsur", "Pemasangan mesin", "Teori enjin kenderaan"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "In acupuncture theory, acupoints are primarily distributed along what?",
+                zh: "在针灸理论中，腧穴主要分布在什么系统上？",
+                ms: "Dalam teori akupunktur, titik akupunktur terutamanya tersusun sepanjang sistem apa?"
+            },
+            options: {
+                en: ["Meridians and collaterals", "Bones only", "Hair roots"],
+                zh: ["经络", "仅骨骼", "毛根"],
+                ms: ["Meridian dan kolateral", "Tulang sahaja", "Akar rambut"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Before combining Chinese herbs with prescription medicine, what is the safest action?",
+                zh: "将中药与处方药合用前，最安全的做法是什么？",
+                ms: "Sebelum menggabungkan herba Cina dengan ubat preskripsi, apakah tindakan paling selamat?"
+            },
+            options: {
+                en: ["Double every dose", "Consult a qualified healthcare professional", "Ignore possible interactions"],
+                zh: ["把所有剂量加倍", "咨询合格的医疗专业人员", "忽视可能的相互作用"],
+                ms: ["Gandakan semua dos", "Rujuk profesional kesihatan yang berkelayakan", "Abaikan kemungkinan interaksi"]
+            },
+            answer: 1
+        },
+        {
+            question: {
+                en: "Which four methods are traditionally associated with TCM diagnosis?",
+                zh: "中医传统诊断常说的“四诊”是什么？",
+                ms: "Apakah empat kaedah yang secara tradisional dikaitkan dengan diagnosis TCM?"
+            },
+            options: {
+                en: ["Looking, listening/smelling, asking, and pulse-taking", "Running, jumping, swimming, and cycling", "Printing, scanning, copying, and saving"],
+                zh: ["望、闻、问、切", "跑、跳、游、骑", "打印、扫描、复制、保存"],
+                ms: ["Pemerhatian, pendengaran/bau, pertanyaan dan pemeriksaan nadi", "Berlari, melompat, berenang dan berbasikal", "Mencetak, mengimbas, menyalin dan menyimpan"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "In TCM culture, what are meridians commonly described as?",
+                zh: "在中医文化中，经络通常被描述为什么？",
+                ms: "Dalam budaya TCM, meridian biasanya digambarkan sebagai apa?"
+            },
+            options: {
+                en: ["Computer network cables", "Pathways related to the circulation of Qi and blood", "Types of cooking tools"],
+                zh: ["计算机网络线", "与气血运行相关的通道", "烹饪工具的种类"],
+                ms: ["Kabel rangkaian komputer", "Laluan yang berkaitan dengan peredaran Qi dan darah", "Jenis peralatan memasak"]
+            },
+            answer: 1
+        },
+        {
+            question: {
+                en: "Which practice best reflects a balanced daily health routine?",
+                zh: "以下哪种做法更符合均衡的日常养生理念？",
+                ms: "Amalan manakah paling mencerminkan rutin kesihatan harian yang seimbang?"
+            },
+            options: {
+                en: ["Staying awake every night", "Skipping every meal", "Regular sleep, balanced food, and suitable exercise"],
+                zh: ["每天熬夜", "长期不吃饭", "规律作息、均衡饮食和适度运动"],
+                ms: ["Berjaga setiap malam", "Tidak makan setiap hari", "Tidur teratur, makanan seimbang dan senaman sesuai"]
+            },
+            answer: 2
+        },
+        {
+            question: {
+                en: "Why should herbal dosage not be chosen only by guesswork?",
+                zh: "为什么中药用量不应只凭猜测决定？",
+                ms: "Mengapakah dos herba tidak patut ditentukan hanya dengan tekaan?"
+            },
+            options: {
+                en: ["Appropriate use can depend on the herb, person, and professional assessment", "Every herb always uses the same dose", "Dosage has no effect"],
+                zh: ["合理使用可能取决于药材、个人情况和专业判断", "所有药材的用量都完全相同", "用量不会产生任何影响"],
+                ms: ["Penggunaan sesuai boleh bergantung pada herba, individu dan penilaian profesional", "Semua herba sentiasa menggunakan dos sama", "Dos tidak memberi sebarang kesan"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "Which herb in this platform is commonly introduced as a Qi-tonifying herb?",
+                zh: "本平台中哪种药材常被介绍为补气类药材？",
+                ms: "Herba manakah dalam platform ini biasanya diperkenalkan sebagai herba penguat Qi?"
+            },
+            options: {
+                en: ["Peppermint", "Astragalus", "Lotus seed"],
+                zh: ["薄荷", "黄芪", "莲子"],
+                ms: ["Pudina", "Astragalus", "Biji teratai"]
+            },
+            answer: 1
+        },
+        {
+            question: {
+                en: "What is the safest response when a person takes prescription medicine and wants to use herbs?",
+                zh: "正在服用处方药的人想使用草药时，较安全的做法是什么？",
+                ms: "Apakah tindakan paling selamat apabila seseorang yang mengambil ubat preskripsi mahu menggunakan herba?"
+            },
+            options: {
+                en: ["Double every dose", "Stop all medicine immediately", "Ask a qualified healthcare professional about possible interactions"],
+                zh: ["把所有剂量加倍", "立即停用所有药物", "咨询合格医疗专业人员是否存在相互作用"],
+                ms: ["Gandakan semua dos", "Hentikan semua ubat serta-merta", "Tanya profesional kesihatan tentang kemungkinan interaksi"]
+            },
+            answer: 2
+        },
+        {
+            question: {
+                en: "Which season is associated with the Wood element in the traditional Five Elements correspondence?",
+                zh: "在传统五行对应关系中，“木”通常与哪个季节相关？",
+                ms: "Dalam hubungan tradisional Lima Unsur, unsur Kayu biasanya dikaitkan dengan musim apa?"
+            },
+            options: {
+                en: ["Spring", "Autumn", "Winter"],
+                zh: ["春季", "秋季", "冬季"],
+                ms: ["Musim bunga", "Musim luruh", "Musim sejuk"]
+            },
+            answer: 0
+        },
+        {
+            question: {
+                en: "What does the term 'holistic' emphasize in TCM cultural learning?",
+                zh: "中医文化学习中的“整体观”强调什么？",
+                ms: "Apakah yang ditekankan oleh istilah 'menyeluruh' dalam pembelajaran budaya TCM?"
+            },
+            options: {
+                en: ["Looking at only one isolated detail", "Considering the person and related factors as a whole", "Ignoring daily habits"],
+                zh: ["只看一个孤立细节", "从整体上考虑人体及相关因素", "忽略日常生活习惯"],
+                ms: ["Melihat hanya satu perkara terasing", "Mempertimbangkan individu dan faktor berkaitan secara menyeluruh", "Mengabaikan tabiat harian"]
+            },
+            answer: 1
+        },
+        {
+            question: {
+                en: "In Yin-Yang theory, what does mutual rooting mean?",
+                zh: "阴阳学说中的“互根”是指什么？",
+                ms: "Dalam teori Yin-Yang, apakah maksud saling berakar?"
+            },
+            options: {
+                en: ["Yin and Yang never interact", "One side can exist entirely without the other", "Yin and Yang depend on and provide a basis for each other"],
+                zh: ["阴阳从不相互作用", "一方可以完全脱离另一方存在", "阴阳相互依存、互为根本"],
+                ms: ["Yin dan Yang tidak pernah berinteraksi", "Satu pihak boleh wujud sepenuhnya tanpa yang lain", "Yin dan Yang saling bergantung dan menjadi asas antara satu sama lain"]
+            },
+            answer: 2
+        },
+        {
+            question: {
+                en: "Why can the same disease be treated differently in TCM?",
+                zh: "为什么中医对同一种疾病可能采用不同治法？",
+                ms: "Mengapakah penyakit yang sama boleh dirawat secara berbeza dalam TCM?"
+            },
+            options: {
+                en: ["Because seasons never matter", "Because treatment is based on different syndrome patterns", "Because every herb has the same function"],
+                zh: ["因为季节从不重要", "因为需要根据不同证候辨证施治", "因为所有中药功效相同"],
+                ms: ["Kerana musim tidak pernah penting", "Kerana rawatan berdasarkan pola sindrom yang berbeza", "Kerana semua herba mempunyai fungsi yang sama"]
+            },
+            answer: 1
+        }
+    ];
+
+    function escapeLearningText(value) {
+        return String(value ?? "").replace(/[&<>"']/g, character => ({
+            "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+        })[character]);
+    }
+
+    function showMode(mode) {
+        activeMode = mode === "quiz" ? "quiz" : "knowledge";
+        localStorage.setItem("knowledgeQuizMode", activeMode);
+        document.getElementById("knowledgePanel").hidden = activeMode !== "knowledge";
+        document.getElementById("quizPanel").hidden = activeMode !== "quiz";
+        document.getElementById("knowledgeTab").classList.toggle("active", activeMode === "knowledge");
+        document.getElementById("quizTab").classList.toggle("active", activeMode === "quiz");
+        if (activeMode === "knowledge") {
+            if (quizSubmitted) {
+                loadRandomQuestions();
+            }
+            clearResultCountdown();
+            renderCourseShelf();
+        }
+    }
+
+    function renderCourseShelf() {
+        const text = translations[currentLanguage];
+        const shelf = document.getElementById("courseShelf");
+        shelf.innerHTML = learningCourses.map(course => `
+            <article class="course-book">
+                <div class="course-icon">${course.icon}</div>
+                <h3>${escapeLearningText(course.title[currentLanguage])}</h3>
+                <p>${escapeLearningText(course.summary[currentLanguage])}</p>
+                <button type="button" data-course-id="${course.id}">${text.readCourse}</button>
+            </article>
+        `).join("");
+        shelf.querySelectorAll("[data-course-id]").forEach(button => {
+            button.addEventListener("click", () => openCourse(button.dataset.courseId));
+        });
+        if (selectedCourseId) renderCourseReader();
+    }
+
+    function openCourse(courseId) {
+        selectedCourseId = courseId;
+        renderCourseReader();
+        document.getElementById("courseReader").hidden = false;
+    }
+
+    function renderCourseReader() {
+        const course = learningCourses.find(item => item.id === selectedCourseId);
+        if (!course) return;
+        const text = translations[currentLanguage];
+        const reader = document.getElementById("courseReader");
+        const chapters = course.chapters.map(chapter => `
+            <section class="chapter-card">
+                <h3>${escapeLearningText(chapter.title[currentLanguage])}</h3>
+                <p>${escapeLearningText(chapter.text[currentLanguage])}</p>
+            </section>
+        `).join("");
+        const resources = course.resources.map(resource => `
+            <a href="${escapeLearningText(resource.url[currentLanguage])}" target="_blank" rel="noopener noreferrer">${escapeLearningText(resource.label[currentLanguage])} ↗</a>
+        `).join("");
+        reader.innerHTML = `
+            <h2>${escapeLearningText(course.icon + " " + course.title[currentLanguage])}</h2>
+            <h3>${text.chaptersLabel}</h3>
+            <div class="chapter-grid">${chapters}</div>
+            <h3>${text.furtherReading}</h3>
+            <div class="resource-links">${resources}</div>
+        `;
+        reader.hidden = false;
+    }
+
+    const additionalCourseQuestions = [
+        {courseId:"diagnostics",difficulty:"BRONZE",question:{en:"Which group correctly names the four traditional examinations?",zh:"以下哪组正确列出中医四诊？",ms:"Kumpulan manakah menamakan empat pemeriksaan tradisional dengan betul?"},options:{en:["Looking, listening/smelling, asking and pulse-taking","Reading, writing, counting and drawing","Running, swimming, jumping and cycling"],zh:["望、闻、问、切","读、写、算、画","跑、游、跳、骑"],ms:["Pemerhatian, pendengaran/bau, pertanyaan dan pemeriksaan nadi","Membaca, menulis, mengira dan melukis","Berlari, berenang, melompat dan berbasikal"]},answer:0},
+        {courseId:"diagnostics",difficulty:"SILVER",question:{en:"What does traditional pattern differentiation emphasize?",zh:"传统辨证思维主要强调什么？",ms:"Apakah yang ditekankan oleh pembezaan corak tradisional?"},options:{en:["Judging from one sign only","Combining multiple signs into a coherent pattern","Ignoring information from the person"],zh:["只根据一个表现判断","综合多个表现形成模式","忽略个人提供的信息"],ms:["Menilai satu tanda sahaja","Menggabungkan pelbagai tanda kepada corak yang berkaitan","Mengabaikan maklumat individu"]},answer:1},
+        {courseId:"diagnostics",difficulty:"GOLD",question:{en:"In cultural learning, how should meridians be understood?",zh:"在文化学习中，应如何理解经络？",ms:"Dalam pembelajaran budaya, bagaimana meridian harus difahami?"},options:{en:["As visible blood vessels only","As computer wiring","As traditional conceptual pathways of connection and circulation"],zh:["仅指肉眼可见的血管","指计算机线路","指描述联系与运行的传统概念性通道"],ms:["Sebagai salur darah yang kelihatan sahaja","Sebagai pendawaian komputer","Sebagai laluan konsep tradisional bagi hubungan dan peredaran"]},answer:2},
+        {courseId:"wellness",difficulty:"BRONZE",question:{en:"Which habit best matches balanced wellness education?",zh:"哪种习惯更符合均衡养生教育？",ms:"Tabiat manakah paling sesuai dengan pendidikan kesihatan seimbang?"},options:{en:["Regular rest and suitable activity","Staying awake every night","Skipping all meals"],zh:["规律休息和适度活动","每天通宵不睡","完全不吃饭"],ms:["Rehat teratur dan aktiviti sesuai","Berjaga setiap malam","Tidak makan langsung"]},answer:0},
+        {courseId:"wellness",difficulty:"SILVER",question:{en:"What does traditional food therapy commonly discuss?",zh:"传统食疗通常讨论什么？",ms:"Apakah yang biasa dibincangkan dalam terapi makanan tradisional?"},options:{en:["Only food prices","Food nature, flavour and balanced use","Replacing all professional care"],zh:["只讨论食物价格","食物性质、味道与均衡运用","代替所有专业医疗"],ms:["Harga makanan sahaja","Sifat, rasa dan penggunaan makanan yang seimbang","Menggantikan semua rawatan profesional"]},answer:1},
+        {courseId:"wellness",difficulty:"GOLD",question:{en:"Why is seasonal awareness used in traditional wellness culture?",zh:"传统养生文化为什么重视季节变化？",ms:"Mengapakah budaya kesihatan tradisional memberi perhatian kepada musim?"},options:{en:["To guarantee treatment","To ignore individual differences","To consider suitable adjustments in activity, rest and diet"],zh:["为了保证治疗结果","为了忽略个体差异","为了考虑活动、休息与饮食的适当调整"],ms:["Untuk menjamin rawatan","Untuk mengabaikan perbezaan individu","Untuk mempertimbangkan pelarasan aktiviti, rehat dan diet"]},answer:2},
+        {courseId:"acupuncture",difficulty:"BRONZE",question:{en:"Who should perform acupuncture and moxibustion?",zh:"针刺与艾灸应由谁操作？",ms:"Siapakah yang patut melakukan akupunktur dan moksibusi?"},options:{en:["Qualified practitioners","Anyone without training","Only online readers"],zh:["合格专业人员","未经训练的任何人","只看过网页的人"],ms:["Pengamal berkelayakan","Sesiapa tanpa latihan","Pembaca dalam talian sahaja"]},answer:0},
+        {courseId:"acupuncture",difficulty:"SILVER",question:{en:"What material is traditionally used in moxibustion?",zh:"艾灸传统上主要使用什么材料？",ms:"Apakah bahan yang digunakan secara tradisional dalam moksibusi?"},options:{en:["Plastic sheets","Dried mugwort (moxa)","Metal powder"],zh:["塑料片","干燥艾叶制成的艾材","金属粉末"],ms:["Kepingan plastik","Mugwort kering (moxa)","Serbuk logam"]},answer:1},
+        {courseId:"acupuncture",difficulty:"GOLD",question:{en:"Which statement best describes acupuncture and moxibustion in this course?",zh:"本课程如何定位针灸与艾灸内容？",ms:"Bagaimanakah kursus ini menerangkan akupunktur dan moksibusi?"},options:{en:["A self-treatment instruction","A guarantee of clinical results","Cultural and historical education with clear safety boundaries"],zh:["自行治疗操作指南","临床效果保证","具有明确安全边界的文化与历史教育"],ms:["Arahan rawatan sendiri","Jaminan hasil klinikal","Pendidikan budaya dan sejarah dengan batas keselamatan jelas"]},answer:2}
+    ];
+
+    function inferExistingCourse(index) {
+        if ([1,3,4,17,18,26,27,36,38].includes(index)) return "theories";
+        if ([5,6,7,20,21,25,29,33,34,35].includes(index)) return "herbs";
+        if ([8,9,10,32].includes(index)) return "wellness";
+        if ([13,16,23,24,30,31,39].includes(index)) return "diagnostics";
+        if ([14,15,28].includes(index)) return "acupuncture";
+        return "basics";
+    }
+
+    const questionCatalog = questionBank.map((question,index) => ({
+        ...question,
+        courseId:inferExistingCourse(index),
+        difficulty:index < 15 ? "BRONZE" : index < 30 ? "SILVER" : "GOLD"
+    })).concat(additionalCourseQuestions);
+
+    let selectedQuestions = [];
+    let quizSubmitted = false;
+    let resultCountdownTimer = null;
+
+    function clearResultCountdown() {
+        if (resultCountdownTimer) {
+            clearInterval(resultCountdownTimer);
+            resultCountdownTimer = null;
+        }
+    }
+
+    function getResultCountdownText(seconds) {
+        if (currentLanguage === "zh") {
+            return `成绩已保存，${seconds} 秒后自动跳转到知识学习板块。`;
+        }
+        if (currentLanguage === "ms") {
+            return `Keputusan telah disimpan. Beralih ke Pembelajaran dalam ${seconds} saat.`;
+        }
+        return `Your result has been saved. Switching to Knowledge Learning in ${seconds} seconds.`;
+    }
+
+    function startResultCountdown() {
+        clearResultCountdown();
+        let seconds = 10;
+        const countdownElement = document.getElementById("resultCountdown");
+        if (!countdownElement) return;
+
+        const updateCountdown = () => {
+            countdownElement.textContent = getResultCountdownText(seconds);
+        };
+
+        updateCountdown();
+        resultCountdownTimer = setInterval(() => {
+            seconds--;
+            if (seconds <= 0) {
+                clearResultCountdown();
+                showMode("knowledge");
+                document.querySelector(".mode-switch").scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+                return;
+            }
+            updateCountdown();
+        }, 1000);
+    }
+
+    function loadRandomQuestions() {
+        clearResultCountdown();
+        quizSubmitted = false;
+        const resultBox = document.getElementById("result");
+        resultBox.style.display = "none";
+        resultBox.innerHTML = "";
+        document.getElementById("submitBtn").disabled = false;
+
+        selectedQuestions = questionCatalog
+            .filter(question => question.difficulty === currentRank)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 10);
+
+        const quizForm = document.getElementById("quizForm");
+        quizForm.innerHTML = "";
+
+        selectedQuestions.forEach((q, index) => {
+            const card = document.createElement("div");
+            card.className = "question-card";
+
+            let optionsHtml = "";
+            q.options[currentLanguage].forEach((option, optionIndex) => {
+                optionsHtml += `
+                    <label>
+                        <input type="radio" name="q${index}" value="${optionIndex}">
+                        ${option}
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <h3>${index + 1}. ${q.question[currentLanguage]}</h3>
+                ${optionsHtml}
+            `;
+
+            quizForm.appendChild(card);
+        });
+    }
+
+    async function loadLearningProgress() {
+        try {
+            const response = await fetch("/quiz/progress?username=" + encodeURIComponent(username));
+            if (!response.ok) throw new Error(response.status);
+            updateLearningProgress(await response.json());
+        } catch (error) {
+            console.error("Failed to load learning rank", error);
+            updateLearningProgress(learningProgress);
+        }
+    }
+
+    function updateLearningProgress(progress) {
+        learningProgress = progress;
+        currentRank = progress.rank || "BRONZE";
+        renderRankBanner();
+    }
+
+    function renderRankBanner() {
+        const t = translations[currentLanguage];
+        const nextRank = currentRank === "BRONZE" ? "SILVER" : "GOLD";
+        const nextText = currentRank === "GOLD"
+            ? t.maxRank
+            : t.nextRank
+                .replace("{count}", learningProgress.correctNeeded)
+                .replace("{rank}", t.rankNames[nextRank]);
+        document.getElementById("rankBanner").textContent =
+            `${t.rankLabel}: ${t.rankNames[currentRank]} · ${t.difficultyLabel}: ${t.difficultyNames[currentRank]} · ${t.totalCorrectLabel}: ${learningProgress.totalCorrect}. ${nextText}`;
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        const topicStats = {};
+
+        for (let i = 0; i < selectedQuestions.length; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+
+            if (!selected) {
+                alert(translations[currentLanguage].answerAlert);
+                return;
+            }
+
+            const question = selectedQuestions[i];
+            const courseStats = topicStats[question.courseId] || {correct:0,total:0};
+            courseStats.total++;
+            if (parseInt(selected.value) === question.answer) {
+                score++;
+                courseStats.correct++;
+            }
+            topicStats[question.courseId] = courseStats;
+        }
+
+        const total = selectedQuestions.length;
+        const accuracy = Math.round((score / total) * 100);
+        quizSubmitted = true;
+        document.getElementById("submitBtn").disabled = true;
+
+        const username = localStorage.getItem("username");
+
+        fetch("/quiz/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                score: score,
+                totalQuestions: total,
+                accuracy: accuracy,
+                topicStats: JSON.stringify(topicStats)
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("Quiz记录已保存:", data);
+                const previousRank = currentRank;
+                updateLearningProgress(data);
+                if (previousRank !== currentRank) {
+                    const language = translations[currentLanguage];
+                    alert(language.rankUp.replace("{rank}", language.rankNames[currentRank]));
+                }
+            })
+            .catch(err => {
+                console.error("保存失败:", err);
+            });
+
+        localStorage.setItem("quizScore", score);
+        localStorage.setItem("quizAccuracy", accuracy);
+        localStorage.setItem("quizCompleted", "true");
+        localStorage.setItem("completedTopics", "1");
+        localStorage.setItem("learningProgress", accuracy >= 80 ? "60" : "40");
+
+        let history = JSON.parse(localStorage.getItem("quizHistory")) || [];
+        const now = new Date();
+
+        history.push({
+            date: now.toLocaleString(),
+            accuracy: accuracy
+        });
+
+        if (history.length > 5) {
+            history = history.slice(history.length - 5);
+        }
+
+        localStorage.setItem("quizHistory", JSON.stringify(history));
+
+        const t = translations[currentLanguage];
+
+        let comment = "";
+
+        if (accuracy >= 80) {
+
+            comment = t.excellent;
+
+        } else if (accuracy >= 60) {
+
+            comment = t.good;
+
+        } else {
+
+            comment = t.keepLearning;
+
+        }
+
+        const resultBox = document.getElementById("result");
+
+        resultBox.style.display = "block";
+
+        resultBox.innerHTML = `
+<h2>${t.resultTitle}</h2>
+
+<p>${t.score}: <b>${score} / ${total}</b></p>
+
+<p>${t.accuracy}: <b>${accuracy}%</b></p>
+
+<h3>${comment}</h3>
+
+<div id="resultCountdown" class="result-countdown"></div>
+`;
+        resultBox.scrollIntoView({behavior: "smooth", block: "center"});
+        startResultCountdown();
+    }
+
+    function applyLanguage(){
+
+        const t = translations[currentLanguage];
+
+        document.getElementById("welcomeUser").innerText =
+            t.welcome;
+
+        document.getElementById("logoutBtn").innerText =
+            t.logout;
+
+        document.getElementById("navHome").innerText = t.navHome;
+        document.getElementById("navHerb").innerText = t.navHerb;
+        document.getElementById("navQuiz").innerText = t.navQuiz;
+        document.getElementById("navHistory").innerText = t.navHistory;
+        document.getElementById("navPersonal").innerText = t.navPersonal;
+        document.getElementById("knowledgeTab").innerText = t.knowledgeTab;
+        document.getElementById("quizTab").innerText = t.quizTab;
+        document.getElementById("knowledgeHeading").innerText = t.knowledgeHeading;
+        document.getElementById("knowledgeIntro").innerText = t.knowledgeIntro;
+
+        document.getElementById("pageTitle").innerText =
+            t.pageTitle;
+
+        document.getElementById("introTitle").innerText =
+            t.introTitle;
+
+        document.getElementById("introText").innerText =
+            t.introText;
+
+        document.getElementById("submitBtn").innerText =
+            t.submit;
+
+        document.getElementById("homeBtn").innerText =
+            t.home;
+
+        renderRankBanner();
+        renderCourseShelf();
+
+    }
+
+    function changeLanguage(){
+
+        currentLanguage =
+            document.getElementById("languageSelect").value;
+
+        localStorage.setItem(
+            "language",
+            currentLanguage
+        );
+
+        applyLanguage();
+
+        loadRandomQuestions();
+
+    }
+
+    function logout() {
+        localStorage.removeItem("username");
+        window.location.href = "login.html";
+    }
+
+    function goKnowledgeLearning() {
+        showMode("knowledge");
+        document.querySelector(".mode-switch").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    document.getElementById("languageSelect").value =
+        currentLanguage;
+
+    async function initializeQuiz() {
+        applyLanguage();
+        showMode(activeMode);
+        await loadLearningProgress();
+        loadRandomQuestions();
+    }
+
+    initializeQuiz();
+</script>
+
+<script src="/js/user-avatar.js?v=20260702-1"></script>
+
+</body>
+</html>

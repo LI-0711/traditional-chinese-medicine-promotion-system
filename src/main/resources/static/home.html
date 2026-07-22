@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TCM Cultural Popular Science System</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:Arial,Helvetica,sans-serif;
+            background:#f5f7f8;
+            color:#333;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header{
+
+            background:#2f5d50;
+            color:white;
+            padding:18px 60px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+        }
+
+        .user-info{
+
+            display:flex;
+            align-items:center;
+            gap:35px;
+        }
+
+        #welcomeUser{
+
+            font-size:26px;
+            font-weight:bold;
+        }
+
+        .header-right{
+
+            display:flex;
+            align-items:center;
+            gap:18px;
+        }
+
+        .header select{
+
+            width:150px;
+            height:42px;
+
+            border:none;
+            border-radius:8px;
+
+            padding-left:12px;
+
+            font-size:15px;
+        }
+
+        .logout-btn{
+
+            background:white;
+            color:#2f5d50;
+
+            border:none;
+
+            padding:10px 22px;
+
+            border-radius:8px;
+
+            cursor:pointer;
+
+            font-weight:bold;
+
+            transition:.2s;
+        }
+
+        .logout-btn:hover{
+
+            background:#ececec;
+        }
+
+        /* ================= NAVIGATION ================= */
+
+        .navbar{
+
+            background:white;
+
+            height:65px;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            gap:55px;
+
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+        }
+
+        .navbar a{
+
+            text-decoration:none;
+
+            color:#2f5d50;
+
+            font-size:17px;
+
+            font-weight:bold;
+
+            transition:.2s;
+        }
+
+        .navbar a:hover{
+
+            color:#53a17e;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container{
+
+            width:1200px;
+
+            margin:45px auto;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero{
+
+            background:linear-gradient(
+                    rgba(47,93,80,.92),
+                    rgba(47,93,80,.92)
+            );
+
+            color:white;
+
+            border-radius:18px;
+
+            padding:70px 80px;
+
+            box-shadow:0 8px 25px rgba(0,0,0,.12);
+
+        }
+
+        .hero h1{
+
+            font-size:40px;
+
+            margin-bottom:18px;
+        }
+
+        .hero p{
+
+            font-size:18px;
+
+            line-height:1.8;
+
+            max-width:850px;
+        }
+
+        .hero-buttons{
+
+            margin-top:35px;
+
+            display:flex;
+
+            gap:20px;
+        }
+
+        .hero-buttons button{
+
+            border:none;
+
+            padding:15px 30px;
+
+            border-radius:10px;
+
+            background:white;
+
+            color:#2f5d50;
+
+            font-size:16px;
+
+            font-weight:bold;
+
+            cursor:pointer;
+
+            transition:.25s;
+        }
+
+        .hero-buttons button:hover{
+
+            transform:translateY(-3px);
+
+            background:#ececec;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section-title{
+
+            margin:55px 0 25px;
+
+            color:#2f5d50;
+
+            font-size:28px;
+        }
+
+        /* ================= CARDS ================= */
+
+        .module-grid{
+
+            display:grid;
+
+            grid-template-columns:repeat(2,1fr);
+
+            gap:30px;
+        }
+
+        .module-card{
+
+            background:white;
+
+            padding:35px;
+
+            border-radius:18px;
+
+            box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+            transition:.25s;
+
+            cursor:pointer;
+        }
+
+        .module-card:hover{
+
+            transform:translateY(-6px);
+
+            box-shadow:0 12px 25px rgba(0,0,0,.12);
+        }
+
+        .module-card h3{
+
+            color:#2f5d50;
+
+            font-size:25px;
+
+            margin-bottom:15px;
+        }
+
+        .module-card p{
+
+            line-height:1.8;
+
+            color:#666;
+
+            margin-bottom:18px;
+        }
+
+        .open-module{
+
+            color:#2f5d50;
+
+            font-weight:bold;
+
+            font-size:15px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="css/guofeng-background.css?v=20260717-1">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<div class="header">
+
+    <div class="user-info">
+
+        <span id="welcomeUser"></span>
+
+    </div>
+
+    <div class="header-right">
+
+        <select
+                id="languageSelect"
+                onchange="changeLanguage()">
+
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+            <option value="ms">Bahasa Melayu</option>
+
+        </select>
+
+        <button
+                class="logout-btn"
+                id="logoutBtn"
+                onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ================= NAVIGATION ================= -->
+
+<div class="navbar">
+
+    <a href="home.html" id="navHome">Home</a>
+
+    <a href="herb.html" id="navHerb">Herb Information</a>
+
+    <a href="quiz.html" id="navQuiz">Knowledge Quiz</a>
+
+    <a href="history.html" id="navHistory">History</a>
+
+    <a href="personal_center.html" id="navPersonal">Personal Center</a>
+
+</div>
+
+<div class="container">
+
+    <div class="hero">
+
+        <h1 id="mainHeading"></h1>
+
+        <p id="mainDescription"></p>
+
+        <div class="hero-buttons">
+
+            <button id="browseHerbsBtn" onclick="goToHerbSearch()">
+                🌿 Browse Herbs
+            </button>
+
+            <button id="startQuizBtn" onclick="goToKnowledge()">
+                📚 Start Quiz
+            </button>
+
+        </div>
+
+    </div>
+
+    <h2 class="section-title" id="quickAccessTitle">
+        Quick Access
+    </h2>
+
+    <div class="module-grid">
+        <div class="module-card" onclick="goToHerbSearch()">
+
+            <h3 id="herbTitle"></h3>
+
+            <p id="herbDesc"></p>
+
+            <span class="open-module" id="openHerbModule">
+            Open Module →
+        </span>
+
+        </div>
+
+        <div class="module-card" onclick="goToKnowledge()">
+
+            <h3 id="knowledgeTitle"></h3>
+
+            <p id="knowledgeDesc"></p>
+
+            <span class="open-module" id="openQuizModule">
+            Start Learning →
+        </span>
+
+        </div>
+
+        <div class="module-card" onclick="goToHistory()">
+
+            <h3 id="historyTitle"></h3>
+
+            <p id="historyDesc"></p>
+
+            <span class="open-module" id="openHistoryModule">
+            View History →
+        </span>
+
+        </div>
+
+        <div class="module-card" onclick="goToPersonalCenter()">
+
+            <h3 id="personalTitle"></h3>
+
+            <p id="personalDesc"></p>
+
+            <span class="open-module" id="openPersonalModule">
+            Manage Profile →
+        </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const username = localStorage.getItem("username");
+
+    if(!username){
+
+        alert("Please login first.");
+
+        window.location.href="login.html";
+
+    }
+
+    const translations = {
+
+        en:{
+
+            welcome:"👤 Welcome, "+username,
+
+            logout:"Logout",
+
+            pageTitle:"TCM Cultural Popular Science System",
+
+            navHome:"Home", navHerb:"Herb Information", navQuiz:"Knowledge Quiz",
+            navHistory:"History", navPersonal:"Personal Center",
+
+            browseHerbs:"🌿 Browse Herbs", startQuiz:"📚 Start Quiz", quickAccess:"Quick Access",
+            openHerb:"Open Module →", openQuiz:"Start Learning →",
+            openHistory:"View History →", openPersonal:"Manage Profile →",
+
+            mainHeading:"Traditional Chinese Medicine Cultural Popular Science Platform",
+
+            mainDescription:
+                "Explore the culture of Traditional Chinese Medicine through herb information, interactive knowledge quizzes, personal learning history and favourite herb collections. This web-based platform provides an easy and engaging way to learn about TCM.",
+
+            herbTitle:"🌿 Herb Information",
+
+            herbDesc:"Browse and search common Traditional Chinese Medicine herbs, including their functions, usage methods and precautions.",
+
+            knowledgeTitle:"📚 Knowledge Quiz",
+
+            knowledgeDesc:"Improve your understanding of Traditional Chinese Medicine by completing interactive quizzes.",
+
+            historyTitle:"⭐ History & Favorites",
+
+            historyDesc:"Review your quiz history and manage your favourite herbs in one place.",
+
+            personalTitle:"👤 Personal Center",
+
+            personalDesc:"View and manage your personal information and account details."
+
+        },
+
+        zh:{
+
+            welcome:"👤 欢迎，"+username,
+
+            logout:"退出登录",
+
+            pageTitle:"中医药文化科普系统",
+
+            navHome:"首页", navHerb:"草药信息", navQuiz:"知识测验",
+            navHistory:"历史记录", navPersonal:"个人中心",
+
+            browseHerbs:"🌿 浏览草药", startQuiz:"📚 开始测验", quickAccess:"快速入口",
+            openHerb:"打开模块 →", openQuiz:"开始学习 →",
+            openHistory:"查看历史 →", openPersonal:"管理资料 →",
+
+            mainHeading:"中医药文化科普平台",
+
+            mainDescription:
+                "浏览中医药文化知识，查询中药信息，完成知识测验，并查看学习历史及收藏记录。",
+
+            herbTitle:"🌿 中药信息查询",
+
+            herbDesc:"浏览常见中药材及其功效、用法、注意事项等信息。",
+
+            knowledgeTitle:"📚 中医药知识测验",
+
+            knowledgeDesc:"通过互动测验学习和巩固中医药文化知识。",
+
+            historyTitle:"⭐ 历史记录与收藏",
+
+            historyDesc:"查看测验历史及收藏的中药信息。",
+
+            personalTitle:"👤 个人中心",
+
+            personalDesc:"查看和管理个人资料及账户信息。"
+
+        },
+
+        ms:{
+
+            welcome:"👤 Selamat Datang, "+username,
+
+            logout:"Log Keluar",
+
+            pageTitle:"Sistem Popularisasi Budaya TCM",
+
+            navHome:"Laman Utama", navHerb:"Maklumat Herba", navQuiz:"Kuiz Pengetahuan",
+            navHistory:"Sejarah", navPersonal:"Pusat Peribadi",
+
+            browseHerbs:"🌿 Lihat Herba", startQuiz:"📚 Mulakan Kuiz", quickAccess:"Akses Pantas",
+            openHerb:"Buka Modul →", openQuiz:"Mula Belajar →",
+            openHistory:"Lihat Sejarah →", openPersonal:"Urus Profil →",
+
+            mainHeading:"Platform Popularisasi Budaya Perubatan Tradisional Cina",
+
+            mainDescription:
+                "Pelajari budaya Perubatan Tradisional Cina melalui maklumat herba, kuiz interaktif, sejarah pembelajaran dan koleksi herba kegemaran.",
+
+            herbTitle:"🌿 Maklumat Herba",
+
+            herbDesc:"Cari maklumat herba TCM termasuk fungsi, penggunaan dan langkah berjaga-jaga.",
+
+            knowledgeTitle:"📚 Kuiz Pengetahuan",
+
+            knowledgeDesc:"Uji pengetahuan anda mengenai budaya TCM melalui kuiz interaktif.",
+
+            historyTitle:"⭐ Sejarah & Kegemaran",
+
+            historyDesc:"Lihat sejarah kuiz dan koleksi herba kegemaran anda.",
+
+            personalTitle:"👤 Pusat Peribadi",
+
+            personalDesc:"Lihat dan urus maklumat akaun peribadi anda."
+
+        }
+
+    };
+
+    function applyLanguage(lang){
+
+        const t=translations[lang];
+
+        document.documentElement.lang=lang;
+
+        document.title=t.pageTitle;
+
+        document.getElementById("welcomeUser").innerText=t.welcome;
+
+        document.getElementById("logoutBtn").innerText=t.logout;
+
+        document.getElementById("navHome").innerText=t.navHome;
+
+        document.getElementById("navHerb").innerText=t.navHerb;
+
+        document.getElementById("navQuiz").innerText=t.navQuiz;
+
+        document.getElementById("navHistory").innerText=t.navHistory;
+
+        document.getElementById("navPersonal").innerText=t.navPersonal;
+
+        document.getElementById("browseHerbsBtn").innerText=t.browseHerbs;
+
+        document.getElementById("startQuizBtn").innerText=t.startQuiz;
+
+        document.getElementById("quickAccessTitle").innerText=t.quickAccess;
+
+        document.getElementById("openHerbModule").innerText=t.openHerb;
+
+        document.getElementById("openQuizModule").innerText=t.openQuiz;
+
+        document.getElementById("openHistoryModule").innerText=t.openHistory;
+
+        document.getElementById("openPersonalModule").innerText=t.openPersonal;
+
+        document.getElementById("mainHeading").innerText=t.mainHeading;
+
+        document.getElementById("mainDescription").innerText=t.mainDescription;
+
+        document.getElementById("herbTitle").innerText=t.herbTitle;
+
+        document.getElementById("herbDesc").innerText=t.herbDesc;
+
+        document.getElementById("knowledgeTitle").innerText=t.knowledgeTitle;
+
+        document.getElementById("knowledgeDesc").innerText=t.knowledgeDesc;
+
+        document.getElementById("historyTitle").innerText=t.historyTitle;
+
+        document.getElementById("historyDesc").innerText=t.historyDesc;
+
+        document.getElementById("personalTitle").innerText=t.personalTitle;
+
+        document.getElementById("personalDesc").innerText=t.personalDesc;
+
+    }
+    function changeLanguage(){
+
+        const lang=document.getElementById("languageSelect").value;
+
+        localStorage.setItem("language",lang);
+
+        applyLanguage(lang);
+
+    }
+
+    function goToPersonalCenter(){
+
+        window.location.href="personal_center.html";
+
+    }
+
+    function goToHerbSearch(){
+
+        window.location.href="herb.html";
+
+    }
+
+    function goToKnowledge(){
+
+        window.location.href="quiz.html";
+
+    }
+
+    function goToHistory(){
+
+        window.location.href="history.html";
+
+    }
+
+    function logout(){
+
+        localStorage.removeItem("username");
+
+        window.location.href="login.html";
+
+    }
+
+    const savedLang=localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value=savedLang;
+
+    applyLanguage(savedLang);
+
+</script>
+
+<script src="/js/user-avatar.js?v=20260702-1"></script>
+
+</body>
+
+</html>
