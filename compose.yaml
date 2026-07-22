@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: tcm-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: tcm_system
+      MYSQL_USER: tcm_user
+      MYSQL_PASSWORD: tcm_dev_password
+      MYSQL_ROOT_PASSWORD: tcm_root_dev_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - tcm_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-utcm_user", "-ptcm_dev_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  tcm_mysql_data:
